@@ -196,7 +196,7 @@ public class ExpensesConotroller {
 		//月間レポートテーブルから全データ取得
 		List<Month> monthList = monthRepository.findAll();
 
-		mv.addObject("moneyList", monthList);
+		mv.addObject("monthList", monthList);
 
 
 		//month.htmlへ
@@ -212,7 +212,7 @@ public class ExpensesConotroller {
 		//月間レポートテーブルから全データ取得
 		List<Year> yearList = yearRepository.findAll();
 
-		mv.addObject("moneyList", yearList);
+		mv.addObject("yearList", yearList);
 
 		//year.htmlへ
 		mv.setViewName("year");
