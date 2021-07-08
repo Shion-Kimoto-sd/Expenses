@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,17 @@ public class AccountController {
 
 	@Autowired
 	AccountRepository accountRepository;
+
+	//新規会員登録画面-------------------------------------------------------------
+	@GetMapping("/signup")
+	public ModelAndView signup(ModelAndView mv) {
+
+		//signup.htmlへ
+		mv.setViewName("signup");
+
+		return mv;
+	}
+
 
 	/**
 	 * ログイン画面を表示
