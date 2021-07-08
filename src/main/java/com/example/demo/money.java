@@ -17,6 +17,10 @@ public class money {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer code;
 
+	@Column(name="id")
+	private String id;
+
+
 	@Column(name="category")
 	private String category;
 
@@ -29,9 +33,9 @@ public class money {
 	@Column(name="cost")
 	private Integer cost;
 
-	//コンストラクタ
-	public money(String category, Integer flug, Date date, Integer cost) {
+	public money(String id, String category, Integer flug, Date date, Integer cost) {
 		super();
+		this.id = id;
 		this.category = category;
 		this.flug = flug;
 		this.date = date;
@@ -42,21 +46,20 @@ public class money {
 
 	}
 
-	public money(Integer code, String category, Integer flug, Date date, Integer cost) {
-		super();
-		this.code = code;
-		this.category = category;
-		this.flug = flug;
-		this.date = date;
-		this.cost = cost;
-	}
-
 	public Integer getCode() {
 		return code;
 	}
 
 	public void setCode(Integer code) {
 		this.code = code;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getCategory() {
@@ -90,7 +93,6 @@ public class money {
 	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
-
 
 
 }

@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +49,8 @@ public class AccountController {
 
 		// セッションスコープにログインしているアカウント情報を格納する
 
-
-		session.setAttribute("name", name);
-		session.setAttribute("user", accountRepository.findBynameLike(name));
+		List<Account> user = accountRepository.findBynameLike(name);
+		session.setAttribute("user", user);
 
 		mv.setViewName("top");
 		return mv;
