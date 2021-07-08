@@ -5,7 +5,7 @@
 <title>支出入力画面</title>
 </head>
 <body>
-	<h1>支出登録</h1>
+	<h1>新規支出登録</h1>
 	<table border="1">
 		<tr>
 			<td>年</td>
@@ -14,7 +14,7 @@
 			<td>カテゴリ</td>
 			<td>品名・店名</td>
 			<td>金額</td>
-			<td>更新</td>
+			<td>登録</td>
 			<td>削除</td>
 		</tr>
 		<tr>
@@ -36,15 +36,18 @@
 			</select></td>
 			<td><input type="text" name="name"></td>
 			<td><input type="text" name="money"></td>
-			<td><input type="submit" value="更新"></td>
+			<td><input type="submit" value="登録"></td>
 			<td><input type="submit" value="削除"></td>
 		</tr>
 	</table>
+	<form action="/newCategory">
+		<input type="submit" value="新規カテゴリ登録">
+	</form>
 	<form action="/in">
-		<input type="submit" value="収入登録画面へ">
+		<input type="submit" value="新規収入登録へ">
 	</form>
 	<form action="/">
-		<input type="submit" value="トップ画面へ">
+		<input type="submit" value="トップへ">
 	</form>
 	<form action="/outDisp">
 		<input type="submit" value="支出一覧表示へ">
