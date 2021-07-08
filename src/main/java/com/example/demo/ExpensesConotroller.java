@@ -35,6 +35,7 @@ public class ExpensesConotroller {
 	@GetMapping("/in")
 	public ModelAndView inMoney(ModelAndView mv) {
 
+		//カテゴリーテーブルから全データ取得
 		List<Category> categoryList = categoryRepository.findAll();
 
 		mv.addObject("category", categoryList);
@@ -48,6 +49,12 @@ public class ExpensesConotroller {
 	//収入一覧画面へ
 	@GetMapping("/inDisp")
 	public ModelAndView inDisp(ModelAndView mv) {
+
+		//収入・支出テーブルから全データ取得
+		List<money> moneyList = moneyRepository.findAll();
+
+		mv.addObject("moneyList", moneyList);
+
 
 		//inDisp.htmlへ
 		mv.setViewName("inDisp");
@@ -69,6 +76,7 @@ public class ExpensesConotroller {
 	@GetMapping("/out")
 	public ModelAndView outMoney(ModelAndView mv) {
 
+		//カテゴリーテーブルから全データ取得
 		List<Category> categoryList = categoryRepository.findAll();
 
 		mv.addObject("category", categoryList);
@@ -84,6 +92,11 @@ public class ExpensesConotroller {
 	//支出一覧画面へ
 	@GetMapping("/outDisp")
 	public ModelAndView outDisp(ModelAndView mv) {
+
+		//収入・支出テーブルから全データ取得
+		List<money> moneyList = moneyRepository.findAll();
+
+		mv.addObject("moneyList", moneyList);
 
 		//outDisp.htmlへ
 		mv.setViewName("outDisp");
