@@ -59,28 +59,30 @@ public class AccountController {
 		}
 		//パスワードが間違っていたらエラー
 		List<Account> userlist = null;
+
+		//データベースからアカウントデータ取得
+		userlist = accountRepository.findByNameLike(name);
+
+		Account user = null;
+
+		//入力されたnameのアカウントがなかったらloginに戻る
 		try {
-			userlist = accountRepository.findByNameLike(name);
-		} catch (Exception e) {
-			mv.addObject("message", "登録の情報がありません。");
-			mv.setViewName("login");
-			return mv;
-		}if(userlist == null) {
+			user = userlist.get(0);
+		}catch(Exception e) {
+
 			mv.addObject("message", "登録の情報がありません。");
 			mv.setViewName("login");
 			return mv;
 		}
 
-		//以下登録あり
-		Account user = userlist.get(0);
 		if(user.getPass().equals(pass)) {
 
 		// セッションスコープにログインしているアカウント情報を格納する
-
 		session.setAttribute("user", user);
 
 		mv.setViewName("top");
 		return mv;
+
 		}else {
 			mv.addObject("message", "パスワードが間違っております。");
 			mv.setViewName("login");
