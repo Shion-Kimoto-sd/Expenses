@@ -13,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountController {
 
 	@Autowired
-	HttpSession session; 
-	
+	HttpSession session;
+
 	@Autowired
 	CategoryRepository categoryRepository;
 
@@ -46,11 +46,11 @@ public class AccountController {
 		// セッションスコープにログイン名とカテゴリ情報を格納する
 		session.setAttribute("name", name);
 		session.setAttribute("categories", categoryRepository.findAll());
-		
+
 		mv.setViewName("top");
 		return mv;
 	}
-	
+
 	/**
 	 * ログアウトを実行
 	 */

@@ -32,6 +32,18 @@ public class Month {
 	@Column(name="total")
 	private Integer total;
 
+
+
+	public Month(Integer code, Integer year, Integer month, Integer intotal, Integer outtotal, Integer total) {
+		super();
+		this.code = code;
+		this.year = year;
+		this.month = month;
+		this.intotal = intotal;
+		this.outtotal = outtotal;
+		this.total = total;
+	}
+
 	public Month(Integer year, Integer month, Integer intotal, Integer outtotal, Integer total) {
 		super();
 		this.year = year;

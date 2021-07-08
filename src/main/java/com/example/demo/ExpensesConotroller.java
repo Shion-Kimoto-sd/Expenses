@@ -19,6 +19,13 @@ public class ExpensesConotroller {
 	@Autowired
 	MoneyRepository moneyRepository;
 
+	@Autowired
+	MonthRepository monthRepository;
+
+	@Autowired
+	YearRepository yearRepository;
+
+
 //トップページへ-------------------------------------------------------------
 	//http://localhost:8080/
 	@GetMapping("/")
@@ -182,6 +189,12 @@ public class ExpensesConotroller {
 	@GetMapping("/month")
 	public ModelAndView monthView(ModelAndView mv) {
 
+		//月間レポートテーブルから全データ取得
+		List<Month> monthList = monthRepository.findAll();
+
+		mv.addObject("moneyList", monthList);
+
+
 		//month.htmlへ
 		mv.setViewName("month");
 
@@ -191,6 +204,11 @@ public class ExpensesConotroller {
 //年間レポートへ-------------------------------------------
 	@GetMapping("/year")
 	public ModelAndView yearView(ModelAndView mv) {
+
+		//月間レポートテーブルから全データ取得
+		List<Year> yearList = yearRepository.findAll();
+
+		mv.addObject("moneyList", yearList);
 
 		//year.htmlへ
 		mv.setViewName("year");
