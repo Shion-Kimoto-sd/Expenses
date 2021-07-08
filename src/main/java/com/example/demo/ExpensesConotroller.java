@@ -19,7 +19,7 @@ public class ExpensesConotroller {
 	@Autowired
 	MoneyRepository moneyRepository;
 
-	//トップページへ
+//トップページへ-------------------------------------------------------------
 	//http://localhost:8080/
 	@GetMapping("/")
 	public ModelAndView top(ModelAndView mv) {
@@ -30,7 +30,7 @@ public class ExpensesConotroller {
 		return mv;
 	}
 
-	//収入登録入力画面へ
+//収入登録入力画面へ------------------------------------------------------
 	//http://localhost:8080/in
 	@GetMapping("/in")
 	public ModelAndView inMoney(ModelAndView mv) {
@@ -46,7 +46,7 @@ public class ExpensesConotroller {
 		return mv;
 	}
 
-	//収入一覧画面へ
+//収入一覧画面へ--------------------------------------------------------
 	@GetMapping("/inDisp")
 	public ModelAndView inDisp(ModelAndView mv) {
 
@@ -62,6 +62,7 @@ public class ExpensesConotroller {
 		return mv;
 	}
 
+//moneyDetailテーブルに収入データを新規登録---------------------------------
 	@PostMapping("inAdd")
 	public ModelAndView inAdd(ModelAndView mv) {
 
@@ -72,7 +73,7 @@ public class ExpensesConotroller {
 		return inDisp(mv);
 	}
 
-	//支出登録入力画面へ
+//支出登録入力画面へ------------------------------------------------------
 	@GetMapping("/out")
 	public ModelAndView outMoney(ModelAndView mv) {
 
@@ -89,7 +90,7 @@ public class ExpensesConotroller {
 	}
 
 
-	//支出一覧画面へ
+//支出一覧画面へ---------------------------------------------------------
 	@GetMapping("/outDisp")
 	public ModelAndView outDisp(ModelAndView mv) {
 
@@ -104,6 +105,7 @@ public class ExpensesConotroller {
 		return mv;
 	}
 
+//moneyDetailテーブルに支出データ新規登録------------------------------
 	@PostMapping("outAdd")
 	public ModelAndView outAdd(ModelAndView mv) {
 
@@ -115,7 +117,7 @@ public class ExpensesConotroller {
 	}
 
 
-	//情報更新入力画面へ
+//情報更新入力画面へ-------------------------------------------------
 	@PostMapping("/updataDisp")
 	public ModelAndView UpdataDisp(
 			@RequestParam("code") Integer code,
@@ -129,7 +131,7 @@ public class ExpensesConotroller {
 		return mv;
 	}
 
-	//moneydetailテーブル更新
+//moneydetailテーブル更新-----------------------------------------------
 	@PostMapping("/updata")
 	public ModelAndView Updata(
 			@RequestParam("code") Integer code,
@@ -140,7 +142,7 @@ public class ExpensesConotroller {
 		return top(mv);
 	}
 
-	//カテゴリー新規登録画面へ
+//カテゴリー新規登録画面へ----------------------------------------------
 	@GetMapping("/newCategory")
 	public ModelAndView newCategory(ModelAndView mv) {
 
@@ -149,7 +151,7 @@ public class ExpensesConotroller {
 		return mv;
 	}
 
-	//カテゴリー新規データ登録
+//カテゴリー新規データ登録--------------------------------------------
 	@PostMapping("/addCategory")
 	public ModelAndView addCategory(
 			ModelAndView mv,
@@ -157,7 +159,6 @@ public class ExpensesConotroller {
 			@RequestParam("name") String name
 			) {
 		//入力されていない値があった場合は画面遷移しない処理
-
 		if(name == "") {
 			mv.setViewName("category");
 			return mv;
@@ -168,13 +169,35 @@ public class ExpensesConotroller {
 			Category category = new Category(name);
 
 
-			//Itemエンティティをテーブルに登録
+			//categoryエンティティをテーブルに登録
 			categoryRepository.saveAndFlush(category);
 
 			//支出新規登録画面へ
 			return outMoney(mv);
 		}
 	}
+
+//月間レポートへ-------------------------------------
+	@GetMapping("/month")
+	public ModelAndView monthView(ModelAndView mv) {
+
+		//month.htmlへ
+		mv.setViewName("month");
+
+		return mv;
+	}
+
+//年間レポートへ-------------------------------------------
+	@GetMapping("/year")
+	public ModelAndView yearView(ModelAndView mv) {
+
+		//year.htmlへ
+		mv.setViewName("year");
+
+		return mv;
+	}
+
+
 
 }
 
