@@ -27,8 +27,9 @@ public class ExpensesConotroller {
 
 		return mv;
 	}
-	//収入登録画面へ
-	@GetMapping("/inDisp")
+
+	//収入登録入力画面へ
+	@GetMapping("/in")
 	public ModelAndView inMoney(ModelAndView mv) {
 
 		//in.htmlへ
@@ -36,8 +37,29 @@ public class ExpensesConotroller {
 
 		return mv;
 	}
-	//支出登録画面へ
-	@GetMapping("/outDisp")
+
+	//収入一覧画面へ
+	@GetMapping("/inDisp")
+	public ModelAndView inDisp(ModelAndView mv) {
+
+		//inDisp.htmlへ
+		mv.setViewName("inDisp");
+
+		return mv;
+	}
+
+	@PostMapping("inAdd")
+	public ModelAndView inAdd(ModelAndView mv) {
+
+		//データベースに収入データ追加
+
+
+		//収入一覧表示
+		return inDisp(mv);
+	}
+
+	//支出登録入力画面へ
+	@GetMapping("/out")
 	public ModelAndView outMoney(ModelAndView mv) {
 
 		//out.htmlへ
@@ -45,6 +67,29 @@ public class ExpensesConotroller {
 
 		return mv;
 	}
+
+
+	//支出一覧画面へ
+	@GetMapping("/outDisp")
+	public ModelAndView outDisp(ModelAndView mv) {
+
+		//outDisp.htmlへ
+		mv.setViewName("outDisp");
+
+		return mv;
+	}
+
+	@PostMapping("outAdd")
+	public ModelAndView outAdd(ModelAndView mv) {
+
+		//データベースに支出データ追加
+
+
+		//支出一覧表示
+		return outDisp(mv);
+	}
+
+
 	//情報更新入力画面へ
 	@PostMapping("/updataDisp")
 	public ModelAndView UpdataDisp(
