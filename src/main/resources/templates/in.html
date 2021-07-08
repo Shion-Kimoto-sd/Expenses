@@ -31,7 +31,7 @@
 						th:text="${i}"></option>
 			</select>
 			<td><select name="category">
-					<option th:each="cList : ${category}" th:value="${cList.getName()}"></option>
+					<option th:each="cList:${category}" th:value="${cList.name}" th:text="${cList.name}"></option>
 			</select></td>
 			<td><input type="text" name="name"></td>
 			<td><input type="text" name="money"></td>

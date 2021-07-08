@@ -38,6 +38,9 @@ public class ExpensesConotroller {
 		List<Category> categoryList = categoryRepository.findAll();
 
 		mv.addObject("category", categoryList);
+		for(Category c : categoryList) {
+			System.out.println(c.getName());
+		}
 
 		//in.htmlへ
 		mv.setViewName("in");
