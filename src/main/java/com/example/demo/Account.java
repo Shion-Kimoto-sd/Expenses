@@ -8,33 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="category")
-public class Category {
+@Table(name="account")
+public class Account {
 
 	@Id
 	@Column(name="code")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer code;
 
-	@Column(name="id")
-	private Integer id;
-
 	@Column(name="name")
 	private String name;
 
-	public Category() {
+	@Column(name="pass")
+	private String pass;
 
-	}
-
-	public Category(Integer code, String name) {
-		super();
-		this.code = code;
-		this.name = name;
-	}
-
-	public Category(String name) {
+	public Account(String name, String pass) {
 		super();
 		this.name = name;
+		this.pass = pass;
+	}
+
+	public Account() {
+
 	}
 
 	public Integer getCode() {
@@ -52,6 +47,17 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+
+
 
 
 }

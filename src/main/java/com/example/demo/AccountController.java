@@ -16,7 +16,7 @@ public class AccountController {
 	HttpSession session;
 
 	@Autowired
-	CategoryRepository categoryRepository;
+	AccountRepository accountRepository;
 
 	/**
 	 * ログイン画面を表示
@@ -25,7 +25,7 @@ public class AccountController {
 	public String login() {
 		// セッション情報はクリアする
 		session.invalidate();
-		return "index";
+		return "login";
 	}
 
 	/**
@@ -34,18 +34,22 @@ public class AccountController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView doLogin(
 			@RequestParam("name") String name,
+			@RequestParam("pass") String pass,
 			ModelAndView mv
 	) {
 		// 名前が空の場合にエラーとする
-		if(name == null || name.length() == 0) {
-			mv.addObject("message", "名前を入力してください");
-			mv.setViewName("index");
+		if(name == null || name.length() == 0 || pass == null || pass.length() == 0) {
+			mv.addObject("message", "未記入の情報があります。");
+			mv.setViewName("login");
 			return mv;
 		}
+		//パスワードが間違っていたらエラー
 
-		// セッションスコープにログイン名とカテゴリ情報を格納する
+		// セッションスコープにログインしているアカウント情報を格納する
+
+
 		session.setAttribute("name", name);
-		session.setAttribute("categories", categoryRepository.findAll());
+		session.setAttribute("user", accountRepository.findBynameLike(name));
 
 		mv.setViewName("top");
 		return mv;

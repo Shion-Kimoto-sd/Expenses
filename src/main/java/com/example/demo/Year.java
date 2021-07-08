@@ -18,6 +18,9 @@ public class Year {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer code;
 
+	@Column(name="id")
+	private Integer id;
+
 
 	@Column(name="year")
 	private Integer year;
