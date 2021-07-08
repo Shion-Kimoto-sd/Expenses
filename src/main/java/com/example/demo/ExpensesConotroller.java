@@ -140,5 +140,25 @@ public class ExpensesConotroller {
 		return top(mv);
 	}
 
+	//カテゴリー新規登録画面へ
+	@GetMapping("/newCategory")
+	public ModelAndView newCategory(ModelAndView mv) {
+
+		mv.setViewName("category");
+
+		return mv;
+	}
+
+	//カテゴリー新規データ登録
+	@PostMapping("/addCategory")
+	public ModelAndView addCategory(
+			ModelAndView mv,
+			@RequestParam("name") String name
+			) {
+
+
+		//支出新規登録画面へ
+		return outMoney(mv);
+	}
 
 }
