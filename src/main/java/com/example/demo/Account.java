@@ -22,11 +22,18 @@ public class Account {
 	@Column(name="pass")
 	private String pass;
 
+	public Account(Integer code, String name, String pass) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.pass = pass;
+	}
 	public Account(String name, String pass) {
 		super();
 		this.name = name;
 		this.pass = pass;
 	}
+
 
 	public Account() {
 

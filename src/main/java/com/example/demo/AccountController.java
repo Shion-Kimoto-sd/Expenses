@@ -47,8 +47,8 @@ public class AccountController {
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView doLogin(
-			@RequestParam("name") String name,
-			@RequestParam("pass") String pass,
+			@RequestParam("USER_ID") String name,
+			@RequestParam("PASSWORD") String pass,
 			ModelAndView mv
 	) {
 		// 名前が空の場合にエラーとする
@@ -61,7 +61,10 @@ public class AccountController {
 
 		// セッションスコープにログインしているアカウント情報を格納する
 
-		List<Account> user = accountRepository.findBynameLike(name);
+		List<Account> userlist = accountRepository.findByNameLike(name);
+
+		Account user = userlist.get(0);
+
 		session.setAttribute("user", user);
 
 		mv.setViewName("top");
