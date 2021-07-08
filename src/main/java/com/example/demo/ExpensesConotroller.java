@@ -153,12 +153,28 @@ public class ExpensesConotroller {
 	@PostMapping("/addCategory")
 	public ModelAndView addCategory(
 			ModelAndView mv,
+			//category.htmlから入力した新カテゴリ名を"name"で受け取り
 			@RequestParam("name") String name
 			) {
+		//入力されていない値があった場合は画面遷移しない処理
+
+		if(name == "") {
+			mv.setViewName("category");
+			return mv;
+
+		}else {
+
+			//登録するデータのインスタンスを生成
+			Category category = new Category(name);
 
 
-		//支出新規登録画面へ
-		return outMoney(mv);
+			//Itemエンティティをテーブルに登録
+			categoryRepository.saveAndFlush(category);
+
+			//支出新規登録画面へ
+			return outMoney(mv);
+		}
 	}
 
 }
+
