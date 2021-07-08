@@ -5,6 +5,35 @@
 <title>支出入力画面</title>
 </head>
 <body>
-
+	<h1>支出登録</h1>
+	<table border="1">
+		<tr>
+			<td>年</td>
+			<td>月</td>
+			<td>日</td>
+			<td>カテゴリ</td>
+			<td>品名・店名</td>
+			<td>金額</td>
+			<td>更新</td>
+			<td>削除</td>
+		</tr>
+		<tr>
+			<td><select name="year">
+					<option th:each="i : ${#numbers.sequence(2020,2030 )}"
+						th:value="${i}" th:text="${i}"></option>
+			</select></td>
+			<td><select name="month">
+					<option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
+						th:text="${i}"></option>
+			</select></td>
+			<td><select name="date">
+					<option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}"
+						th:text="${i}"></option>
+			</select>
+			<td><select name="category">
+					<option></option>
+			</select></td>
+		</tr>
+	</table>
 </body>
 </html>
