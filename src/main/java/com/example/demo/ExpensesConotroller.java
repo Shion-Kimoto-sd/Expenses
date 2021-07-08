@@ -161,6 +161,7 @@ public class ExpensesConotroller {
 		//入力されていない値があった場合は画面遷移しない処理
 		if(name == "") {
 			mv.setViewName("category");
+
 			return mv;
 
 		}else {
