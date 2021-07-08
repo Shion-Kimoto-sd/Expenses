@@ -38,9 +38,6 @@ public class ExpensesConotroller {
 		List<Category> categoryList = categoryRepository.findAll();
 
 		mv.addObject("category", categoryList);
-		for(Category c : categoryList) {
-			System.out.println(c.getName());
-		}
 
 		//in.htmlへ
 		mv.setViewName("in");
@@ -71,6 +68,11 @@ public class ExpensesConotroller {
 	//支出登録入力画面へ
 	@GetMapping("/out")
 	public ModelAndView outMoney(ModelAndView mv) {
+
+		List<Category> categoryList = categoryRepository.findAll();
+
+		mv.addObject("category", categoryList);
+
 
 		//out.htmlへ
 		mv.setViewName("out");
