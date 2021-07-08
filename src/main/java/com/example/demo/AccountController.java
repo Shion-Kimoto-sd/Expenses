@@ -23,7 +23,7 @@ public class AccountController {
 	/**
 	 * ログイン画面を表示
 	 */
-	@RequestMapping("/")
+	@RequestMapping("/loginDisp")
 	public String login() {
 		// セッション情報はクリアする
 		session.invalidate();
