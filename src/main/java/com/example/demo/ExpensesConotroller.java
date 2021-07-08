@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,10 @@ public class ExpensesConotroller {
 	//収入登録入力画面へ
 	@GetMapping("/in")
 	public ModelAndView inMoney(ModelAndView mv) {
+
+		List<Category> categoryList = categoryRepository.findAll();
+
+		mv.addObject("category", categoryList);
 
 		//in.htmlへ
 		mv.setViewName("in");
