@@ -31,6 +31,7 @@ public class ExpensesConotroller {
 	}
 
 	//収入登録入力画面へ
+	//http://localhost:8080/in
 	@GetMapping("/in")
 	public ModelAndView inMoney(ModelAndView mv) {
 
