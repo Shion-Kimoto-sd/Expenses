@@ -58,17 +58,34 @@ public class AccountController {
 			return mv;
 		}
 		//パスワードが間違っていたらエラー
+		List<Account> userlist = null;
+		try {
+			userlist = accountRepository.findByNameLike(name);
+		} catch (Exception e) {
+			mv.addObject("message", "登録の情報がありません。");
+			mv.setViewName("login");
+			return mv;
+		}if(userlist == null) {
+			mv.addObject("message", "登録の情報がありません。");
+			mv.setViewName("login");
+			return mv;
+		}
+
+		//以下登録あり
+		Account user = userlist.get(0);
+		if(user.getPass().equals(pass)) {
 
 		// セッションスコープにログインしているアカウント情報を格納する
-
-		List<Account> userlist = accountRepository.findByNameLike(name);
-
-		Account user = userlist.get(0);
 
 		session.setAttribute("user", user);
 
 		mv.setViewName("top");
 		return mv;
+		}else {
+			mv.addObject("message", "パスワードが間違っております。");
+			mv.setViewName("login");
+			return mv;
+		}
 	}
 
 	/**
