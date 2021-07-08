@@ -2,17 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>支出入力画面</title>
+<title>収入入力画面</title>
 </head>
 <body>
-	<h1>支出登録</h1>
+	<h1>収入登録</h1>
 	<table border="1">
 		<tr>
 			<td>年</td>
 			<td>月</td>
 			<td>日</td>
 			<td>カテゴリ</td>
-			<td>品名・店名</td>
 			<td>金額</td>
 			<td>更新</td>
 			<td>削除</td>
@@ -31,13 +30,20 @@
 						th:text="${i}"></option>
 			</select>
 			<td><select name="category">
-					<option th:each="cList:${category}" th:value="${cList.name}" th:text="${cList.name}"></option>
+					<option th:each="cList:${category}" th:value="${cList.name}"
+						th:text="${cList.name}"></option>
 			</select></td>
-			<td><input type="text" name="name"></td>
 			<td><input type="text" name="money"></td>
 			<td><input type="submit" value="更新"></td>
 			<td><input type="submit" value="削除"></td>
 		</tr>
 	</table>
+
+	<form action="/out">
+		<input type="submit" value="支出登録画面へ">
+	</form>
+	<form action="/">
+		<input type="submit" value="トップ画面へ">
+	</form>
 </body>
 </html>
