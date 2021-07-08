@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,13 +24,13 @@ public class money {
 	private Integer flug;
 
 	@Column(name="date")
-	private Integer date;
+	private Date date;
 
 	@Column(name="cost")
 	private Integer cost;
 
 	//コンストラクタ
-	public money(String category, Integer flug, Integer date, Integer cost) {
+	public money(String category, Integer flug, Date date, Integer cost) {
 		super();
 		this.category = category;
 		this.flug = flug;
@@ -40,7 +42,7 @@ public class money {
 
 	}
 
-	public money(Integer code, String category, Integer flug, Integer date, Integer cost) {
+	public money(Integer code, String category, Integer flug, Date date, Integer cost) {
 		super();
 		this.code = code;
 		this.category = category;
@@ -73,11 +75,11 @@ public class money {
 		this.flug = flug;
 	}
 
-	public Integer getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Integer date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
