@@ -18,8 +18,16 @@
 			<td th:if="${mList.flug == 2}" th:text="${mList.date}"></td>
 			<td th:if="${mList.flug == 2}" th:text="${mList. category}"></td>
 			<td th:if="${mList.flug == 2}" th:text="${mList.cost}"></td>
-			<td th:if="${mList.flug == 2}"><input type="submit" value="更新"></td>
-			<td th:if="${mList.flug == 2}"><input type="submit" value="削除"></td>
+			<td th:if="${mList.flug == 2}">
+				<form action="/updataDisp" method="POST">
+					<input type="submit" value="更新">
+				</form>
+			</td>
+			<td th:if="${mList.flug == 2}">
+				<form action="/deleteDisp" method="POST">
+					<input type="submit" value="削除">
+				</form>
+			</td>
 		</tr>
 	</table>
 	<form action="/out">
