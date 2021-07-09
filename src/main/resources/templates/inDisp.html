@@ -26,6 +26,9 @@
 			</td>
 			<td th:if="${mList.flug == 1}">
 				<form action="/delete" method="POST">
+					<input type="hidden" name="code" th:value="${mList.code}">
+					<input type="hidden" name="flug" th:value="${mList.flug}">
+
 					<input type="submit" value="削除">
 				</form>
 			</td>

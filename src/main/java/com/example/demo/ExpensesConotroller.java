@@ -89,13 +89,33 @@ public class ExpensesConotroller {
 	}
 
 //moneyDetailテーブルに収入データを新規登録---------------------------------
-	@PostMapping("inAdd")
+	@PostMapping("/inAdd")
 	public ModelAndView inAdd(
-			ModelAndView mv
+			ModelAndView mv,
+			@RequestParam("category") String category,
+			@RequestParam("money") Integer cost,
+			@RequestParam("year") String year,
+			@RequestParam("month") String month,
+			@RequestParam("date") String day
 			) {
+		String d = year + "/" + month + "/" + day;
 
-		//データベースに収入データ追加
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = null;
+		try {
+			date = sdFormat.parse(d);
+		} catch (ParseException e) {
+			System.out.println("日付の変換で失敗");
+		}
+		Account user = (Account) session.getAttribute("user");
 
+		Integer uid = user.getCode();
+
+		//登録するデータのインスタンスを生成
+		Money m_data = new Money(uid,1,date,category,cost);
+
+		//収入データをテーブルに登録
+		moneyRepository.saveAndFlush(m_data);
 		//収入一覧表示
 		return inDisp(mv);
 	}
@@ -219,11 +239,10 @@ public class ExpensesConotroller {
 
 			//更新後一覧表示
 			if(flug == 1) {//収入一覧
-				mv.setViewName("inDisp");
-				return mv;
+
+				return inDisp(mv);
 			}else {//支出一覧
-				mv.setViewName("outDisp");
-				return mv;
+				return outDisp(mv);
 			}
 		}
 
