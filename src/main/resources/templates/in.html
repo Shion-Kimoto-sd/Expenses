@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1>新規収入登録</h1>
+	<form action="/inAdd" method="POST">
 	<table border="1">
 		<tr>
 			<td>年</td>
@@ -14,7 +15,7 @@
 			<td>カテゴリ</td>
 			<td>金額</td>
 			<td>登録</td>
-			<td>削除</td>
+
 		</tr>
 		<tr>
 			<td><select name="year">
@@ -38,6 +39,7 @@
 			<td><input type="submit" value="削除"></td>
 		</tr>
 	</table>
+	</form>
 	<form action="/inDisp">
 		<input type="submit" value="収入一覧表示">
 	</form>

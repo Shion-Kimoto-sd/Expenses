@@ -6,6 +6,8 @@
 </head>
 <body>
 	<h1>新規支出登録</h1>
+	<form action="/outAdd" method="POST">
+
 	<table border="1">
 		<tr>
 			<td>年</td>
@@ -15,7 +17,7 @@
 			<td>品名・店名</td>
 			<td>金額</td>
 			<td>登録</td>
-			<td>削除</td>
+
 		</tr>
 		<tr>
 			<td><select name="year">
@@ -37,9 +39,10 @@
 			<td><input type="text" name="name"></td>
 			<td><input type="text" name="money"></td>
 			<td><input type="submit" value="登録"></td>
-			<td><input type="submit" value="削除"></td>
+
 		</tr>
 	</table>
+	</form>
 	<form action="/outDisp">
 		<input type="submit" value="支出一覧表示">
 	</form>
