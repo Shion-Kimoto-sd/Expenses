@@ -204,6 +204,26 @@ public class ExpensesConotroller {
 		return top(mv);
 	}
 
+
+	//moneydetailテーブル要素削除-----------------------------------------------
+		@PostMapping("/delete")
+		public ModelAndView Delete(
+				@RequestParam("code") Integer code,
+				@RequestParam("flug") Integer flug,
+				ModelAndView mv
+				) {
+
+			//更新後一覧表示
+			if(flug == 1) {//収入一覧
+				mv.setViewName("inDisp");
+				return mv;
+			}else {//支出一覧
+				mv.setViewName("outDisp");
+				return mv;
+			}
+		}
+
+
 //カテゴリー新規登録画面へ----------------------------------------------
 	@GetMapping("/newCategory")
 	public ModelAndView newCategory(ModelAndView mv) {
