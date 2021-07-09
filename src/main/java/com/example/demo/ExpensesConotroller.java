@@ -197,6 +197,9 @@ public class ExpensesConotroller {
 	@PostMapping("/updata")
 	public ModelAndView Updata(
 			@RequestParam("code") Integer code,
+			@RequestParam("date") String date,
+			@RequestParam("category") String category,
+			@RequestParam("cost") Integer cost,
 			ModelAndView mv
 			) {
 
@@ -212,6 +215,7 @@ public class ExpensesConotroller {
 				@RequestParam("flug") Integer flug,
 				ModelAndView mv
 				) {
+			moneyRepository.deleteById(code);
 
 			//更新後一覧表示
 			if(flug == 1) {//収入一覧
