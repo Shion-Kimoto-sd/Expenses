@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,27 @@ public class AccountController {
 		return mv;
 	}
 
+	@PostMapping("/signup")
+	public ModelAndView signup(
+			ModelAndView mv,
+			@RequestParam("NAME") String name,
+			@RequestParam("PASSWORD") String pass) {
+		if (!name.equals("") && !pass.equals("")) {
+
+			//登録するデータのインスタンスを生成
+			Account account = new Account(name, pass);
+			session.setAttribute("account", account);
+			mv.addObject("messege", "登録が完了しました。");
+
+			//accountエンティティをテーブルに登録
+			accountRepository.saveAndFlush(account);
+			mv.setViewName("login");
+		} else {
+			mv.addObject("messege", "未入力の項目があります。");
+			mv.setViewName("signup");
+		}
+		return mv;
+	}
 
 	/**
 	 * ログイン画面を表示
@@ -45,14 +67,13 @@ public class AccountController {
 	/**
 	 * ログインを実行
 	 */
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView doLogin(
 			@RequestParam("USER_ID") String name,
 			@RequestParam("PASSWORD") String pass,
-			ModelAndView mv
-	) {
+			ModelAndView mv) {
 		// 名前が空の場合にエラーとする
-		if(name == null || name.length() == 0 || pass == null || pass.length() == 0) {
+		if (name == null || name.length() == 0 || pass == null || pass.length() == 0) {
 			mv.addObject("message", "未記入の情報があります。");
 			mv.setViewName("login");
 			return mv;
@@ -68,22 +89,22 @@ public class AccountController {
 		//入力されたnameのアカウントがなかったらloginに戻る
 		try {
 			user = userlist.get(0);
-		}catch(Exception e) {
+		} catch (Exception e) {
 
 			mv.addObject("message", "登録の情報がありません。");
 			mv.setViewName("login");
 			return mv;
 		}
 
-		if(user.getPass().equals(pass)) {
+		if (user.getPass().equals(pass)) {
 
-		// セッションスコープにログインしているアカウント情報を格納する
-		session.setAttribute("user", user);
+			// セッションスコープにログインしているアカウント情報を格納する
+			session.setAttribute("user", user);
 
-		mv.setViewName("top");
-		return mv;
+			mv.setViewName("top");
+			return mv;
 
-		}else {
+		} else {
 			mv.addObject("message", "パスワードが間違っております。");
 			mv.setViewName("login");
 			return mv;
