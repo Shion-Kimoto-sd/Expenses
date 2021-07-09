@@ -49,10 +49,13 @@ public class ExpensesConotroller {
 	@GetMapping("/in")
 	public ModelAndView inMoney(ModelAndView mv) {
 
-		Integer id = (Integer) session.getAttribute("user.getId()");
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
 
 		//カテゴリーテーブルから全データ取得
-		List<Category> categoryList = categoryRepository.findByIdLike(id);
+
+		List<Category> categoryList = categoryRepository.findByUid(uid);
 
 		mv.addObject("category", categoryList);
 
@@ -67,10 +70,14 @@ public class ExpensesConotroller {
 	public ModelAndView inDisp(ModelAndView mv) {
 
 
-		Integer id = (Integer) session.getAttribute("user.getId()");
+
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
 
 		//収入・支出テーブルから全データ取得
-		List<money> moneyList = moneyRepository.findByIdLike(id);
+
+		List<Money> moneyList = moneyRepository.findByUid(uid);
 
 		mv.addObject("moneyList", moneyList);
 
@@ -88,8 +95,6 @@ public class ExpensesConotroller {
 			) {
 
 		//データベースに収入データ追加
-		Integer id = (Integer) session.getAttribute("user.getId()");
-
 
 		//収入一覧表示
 		return inDisp(mv);
@@ -99,10 +104,13 @@ public class ExpensesConotroller {
 	@GetMapping("/out")
 	public ModelAndView outMoney(ModelAndView mv) {
 
-		Integer id = (Integer) session.getAttribute("user.getId()");
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
 
 		//カテゴリーテーブルから全データ取得
-		List<Category> categoryList = categoryRepository.findByIdLike(id);
+
+		List<Category> categoryList = categoryRepository.findByUid(uid);
 
 		mv.addObject("category", categoryList);
 
@@ -118,10 +126,13 @@ public class ExpensesConotroller {
 	@GetMapping("/outDisp")
 	public ModelAndView outDisp(ModelAndView mv) {
 
-		Integer id = (Integer) session.getAttribute("user.getId()");
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
 
 		//収入・支出テーブルから全データ取得
-		List<money> moneyList = moneyRepository.findByIdLike(id);
+
+		List<Money> moneyList = moneyRepository.findByUid(uid);
 
 		mv.addObject("moneyList", moneyList);
 
@@ -132,7 +143,7 @@ public class ExpensesConotroller {
 	}
 
 //moneyDetailテーブルに支出データ新規登録------------------------------
-	@PostMapping("outAdd")
+	@PostMapping("/outAdd")
 	public ModelAndView outAdd(
 			ModelAndView mv,
 			@RequestParam("category") String category,
@@ -141,7 +152,7 @@ public class ExpensesConotroller {
 			@RequestParam("month") String month,
 			@RequestParam("date") String day
 			) {
-		String d = year+"/" + month+"/" + day;
+		String d = year + "/" + month + "/" + day;
 
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = null;
@@ -152,9 +163,12 @@ public class ExpensesConotroller {
 		}
 
 		//データベースに支出データ追加
-		Integer id = (Integer) session.getAttribute("user.getId()");
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
 		//登録するデータのインスタンスを生成
-		money m_data = new money(id,category,2,date,cost);
+		Money m_data = new Money(uid,2,date,category,cost);
 
 		//categoryエンティティをテーブルに登録
 		moneyRepository.saveAndFlush(m_data);
@@ -213,16 +227,18 @@ public class ExpensesConotroller {
 			return mv;
 
 		}else {
-			Integer id = (Integer) session.getAttribute("user.getId()");
+			Account user =  (Account) session.getAttribute("user");
+			Integer uid = user.getCode();
 
 			//登録するデータのインスタンスを生成
-			Category category = new Category(id,name);
+			Category category = new Category(uid,name);
 
 			//categoryエンティティをテーブルに登録
 			categoryRepository.saveAndFlush(category);
 
 			//支出新規登録画面へ
 			return outMoney(mv);
+
 		}
 	}
 
@@ -230,10 +246,12 @@ public class ExpensesConotroller {
 	@GetMapping("/month")
 	public ModelAndView monthView(ModelAndView mv) {
 
-		Integer id = (Integer) session.getAttribute("user.getId()");
-
 		//月間レポートテーブルから全データ取得
-		List<Month> monthList = monthRepository.findByIdLike(id);
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
+		List<Month> monthList = monthRepository.findByUid(uid);
 
 		mv.addObject("monthList", monthList);
 
@@ -248,10 +266,15 @@ public class ExpensesConotroller {
 	@GetMapping("/year")
 	public ModelAndView yearView(ModelAndView mv) {
 
-		Integer id = (Integer) session.getAttribute("user.getId()");
 
-		//月間レポートテーブルから全データ取得
-		List<Year> yearList = yearRepository.findByIdLike(id);
+		//年間レポートテーブルから全データ取得
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
+		//カテゴリーテーブルから全データ取得
+
+		List<Year> yearList = yearRepository.findByUid(uid);
 
 		mv.addObject("yearList", yearList);
 

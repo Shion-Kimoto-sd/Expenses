@@ -16,8 +16,8 @@ public class Category {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer code;
 
-	@Column(name="id")
-	private Integer id;
+	@Column(name="uid")
+	private Integer uid;
 
 	@Column(name="name")
 	private String name;
@@ -26,12 +26,11 @@ public class Category {
 
 	}
 
-	public Category(Integer code, String name) {
+	public Category(Integer uid, String name) {
 		super();
-		this.code = code;
+		this.uid = uid;
 		this.name = name;
 	}
-
 
 	public Integer getCode() {
 		return code;
@@ -41,6 +40,14 @@ public class Category {
 		this.code = code;
 	}
 
+	public Integer getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -48,6 +55,5 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 }

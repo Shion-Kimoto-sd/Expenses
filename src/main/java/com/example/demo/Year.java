@@ -18,7 +18,7 @@ public class Year {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer code;
 
-	@Column(name="id")
+	@Column(name="uid")
 	private Integer id;
 
 
@@ -50,9 +50,9 @@ public class Year {
 
 	}
 
-	public Year(Integer code, String category, Integer flug, Date date, Integer cost) {
+	public Year(Integer id, String category, Integer flug, Date date, Integer cost) {
 		super();
-		this.code = code;
+		this.id = id;
 		this.category = category;
 		this.flug = flug;
 		this.date = date;

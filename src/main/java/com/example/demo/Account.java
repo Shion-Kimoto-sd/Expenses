@@ -40,7 +40,7 @@ public class Account {
 	}
 
 	public Integer getCode() {
-		return code;
+		return this.code;
 	}
 
 	public void setCode(Integer code) {

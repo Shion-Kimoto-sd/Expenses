@@ -11,15 +11,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="moneydetail")
-public class money {
+public class Money {
 	@Id
 	@Column(name="code")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer code;
 
-	@Column(name="id")
+	@Column(name="uid")
 	private Integer id;
-
 
 	@Column(name="category")
 	private String category;
@@ -33,8 +32,12 @@ public class money {
 	@Column(name="cost")
 	private Integer cost;
 
-	public money(Integer id, String category, Integer flug, Date date, Integer cost) {
+	public Money() {
+
+	}
+	public Money(Integer code, Integer id, Integer flug, Date date,String category, Integer cost) {
 		super();
+		this.code = code;
 		this.id = id;
 		this.category = category;
 		this.flug = flug;
@@ -42,8 +45,15 @@ public class money {
 		this.cost = cost;
 	}
 
-	public money() {
 
+
+	public Money(Integer id, Integer flug, Date date,String category, Integer cost) {
+		super();
+		this.id = id;
+		this.category = category;
+		this.flug = flug;
+		this.date = date;
+		this.cost = cost;
 	}
 
 	public Integer getCode() {
@@ -93,6 +103,7 @@ public class money {
 	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
+
 
 
 }
