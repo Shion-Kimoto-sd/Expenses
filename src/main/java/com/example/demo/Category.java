@@ -26,6 +26,15 @@ public class Category {
 
 	}
 
+
+	public Category(Integer code, Integer uid, String name) {
+		super();
+		this.code = code;
+		this.uid = uid;
+		this.name = name;
+	}
+
+
 	public Category(Integer uid, String name) {
 		super();
 		this.uid = uid;

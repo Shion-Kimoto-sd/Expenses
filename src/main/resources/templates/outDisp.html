@@ -20,6 +20,7 @@
 			<td th:if="${mList.flug == 2}" th:text="${mList.cost}"></td>
 			<td th:if="${mList.flug == 2}">
 				<form action="/updataDisp" method="POST">
+					<input type="hidden" name="code" th:value="${mList.code}">
 					<input type="submit" value="更新">
 				</form>
 			</td>

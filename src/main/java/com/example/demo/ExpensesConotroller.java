@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -205,6 +206,12 @@ public class ExpensesConotroller {
 			@RequestParam("code") Integer code,
 			ModelAndView mv
 			) {
+
+		Optional<Money> moneyList = moneyRepository.findById(code);
+
+		Money money = moneyList.get();
+
+		mv.addObject("flug",money.getFlug() );
 		mv.addObject("code", code);
 
 		//updata.htmlへ
@@ -314,6 +321,38 @@ public class ExpensesConotroller {
 
 		}
 	}
+
+//カテゴリー一覧画面へ---------------------------------------------------------
+	@GetMapping("/CategoryDisp")
+	public ModelAndView CategoryDisp(ModelAndView mv) {
+
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
+		//カテゴリテーブルから全データ取得
+
+		List<Category> categoryList = categoryRepository.findByUid(uid);
+
+		mv.addObject("categoryList", categoryList);
+
+		//categoryList.htmlへ
+		mv.setViewName("categoryList");
+
+		return mv;
+	}
+
+//Categoryテーブル要素削除-----------------------------------------------
+	@PostMapping("/deleteCategory")
+	public ModelAndView DeleteCategory(
+			@RequestParam("code") Integer code,
+			ModelAndView mv
+			) {
+		categoryRepository.deleteById(code);
+
+		return CategoryDisp(mv);
+	}
+
 
 //月間レポートへ-------------------------------------
 	@GetMapping("/month")

@@ -6,8 +6,9 @@
 </head>
 <body>
 	<h1>更新</h1>
-	<form method="POST" action="/update">
-		<input type="hidden" name="" th:value="${}">
+	<form action="/update" method="POST">
+		<input type="hidden" name="code" th:value="${code}">
+		<input type="hidden" name="flug" th:value="${flug}">
 		<table border="1">
 			<tr>
 				<td>年</td>

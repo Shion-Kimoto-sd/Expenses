@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリー</title>
+</head>
+<body>
+	<h1>カテゴリーリスト</h1>
+	<table border="1">
+		<tr>
+			<td>カテゴリ</td>
+			<td>削除</td>
+		<tr>
+		<tr th:each="cList:${categoryList}">
+			<td th:text="${cList.name}"></td>
+
+			<td>
+				<form action="/deleteCategory" method="POST">
+					<input type="hidden" name="code" th:value="${cList.code}">
+					<input type="submit" value="削除">
+				</form>
+			</td>
+		</tr>
+	</table>
+	<form action="/in">
+		<input type="submit" value="新規収入登録">
+	</form>
+	<form action="/out">
+		<input type="submit" value="新規支出登録">
+	</form>
+	<form action="/">
+		<input type="submit" value="トップ画面">
+	</form>
+</body>
+</html>
