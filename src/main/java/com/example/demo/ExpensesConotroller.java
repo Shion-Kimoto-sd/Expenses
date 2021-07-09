@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -131,16 +134,30 @@ public class ExpensesConotroller {
 //moneyDetailテーブルに支出データ新規登録------------------------------
 	@PostMapping("outAdd")
 	public ModelAndView outAdd(
-			ModelAndView mv
+			ModelAndView mv,
+			@RequestParam("category") String category,
+			@RequestParam("money") Integer cost,
+			@RequestParam("year") String year,
+			@RequestParam("month") String month,
+			@RequestParam("date") String day
 			) {
+		String d = year+"/" + month+"/" + day;
+
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = null;
+		try {
+			date = sdFormat.parse(d);
+		} catch (ParseException e) {
+			System.out.println("日付の変換で失敗");
+		}
 
 		//データベースに支出データ追加
 		Integer id = (Integer) session.getAttribute("user.getId()");
 		//登録するデータのインスタンスを生成
-		//money m_data = new money(id,category,2,date,cost);
+		money m_data = new money(id,category,2,date,cost);
 
 		//categoryエンティティをテーブルに登録
-		//moneyRepository.saveAndFlush(m_data);
+		moneyRepository.saveAndFlush(m_data);
 
 
 		//支出一覧表示
