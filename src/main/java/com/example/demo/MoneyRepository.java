@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MoneyRepository extends JpaRepository<money, Integer> {
-	List<money> findByidLike(String id);
+	List<money> findByIdLike(Integer id);
 }

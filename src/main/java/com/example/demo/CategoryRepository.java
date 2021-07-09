@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-	List<Category> findByidLike(String id);
+	List<Category> findByIdLike(Integer id);
 }

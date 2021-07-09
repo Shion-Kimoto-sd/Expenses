@@ -46,8 +46,10 @@ public class ExpensesConotroller {
 	@GetMapping("/in")
 	public ModelAndView inMoney(ModelAndView mv) {
 
+		Integer id = (Integer) session.getAttribute("user.getId()");
+
 		//カテゴリーテーブルから全データ取得
-		List<Category> categoryList = categoryRepository.findAll();
+		List<Category> categoryList = categoryRepository.findByIdLike(id);
 
 		mv.addObject("category", categoryList);
 
@@ -61,8 +63,11 @@ public class ExpensesConotroller {
 	@GetMapping("/inDisp")
 	public ModelAndView inDisp(ModelAndView mv) {
 
+
+		Integer id = (Integer) session.getAttribute("user.getId()");
+
 		//収入・支出テーブルから全データ取得
-		List<money> moneyList = moneyRepository.findAll();
+		List<money> moneyList = moneyRepository.findByIdLike(id);
 
 		mv.addObject("moneyList", moneyList);
 
@@ -75,9 +80,12 @@ public class ExpensesConotroller {
 
 //moneyDetailテーブルに収入データを新規登録---------------------------------
 	@PostMapping("inAdd")
-	public ModelAndView inAdd(ModelAndView mv) {
+	public ModelAndView inAdd(
+			ModelAndView mv
+			) {
 
 		//データベースに収入データ追加
+		Integer id = (Integer) session.getAttribute("user.getId()");
 
 
 		//収入一覧表示
@@ -88,8 +96,10 @@ public class ExpensesConotroller {
 	@GetMapping("/out")
 	public ModelAndView outMoney(ModelAndView mv) {
 
+		Integer id = (Integer) session.getAttribute("user.getId()");
+
 		//カテゴリーテーブルから全データ取得
-		List<Category> categoryList = categoryRepository.findAll();
+		List<Category> categoryList = categoryRepository.findByIdLike(id);
 
 		mv.addObject("category", categoryList);
 
@@ -105,8 +115,10 @@ public class ExpensesConotroller {
 	@GetMapping("/outDisp")
 	public ModelAndView outDisp(ModelAndView mv) {
 
+		Integer id = (Integer) session.getAttribute("user.getId()");
+
 		//収入・支出テーブルから全データ取得
-		List<money> moneyList = moneyRepository.findAll();
+		List<money> moneyList = moneyRepository.findByIdLike(id);
 
 		mv.addObject("moneyList", moneyList);
 
@@ -118,9 +130,17 @@ public class ExpensesConotroller {
 
 //moneyDetailテーブルに支出データ新規登録------------------------------
 	@PostMapping("outAdd")
-	public ModelAndView outAdd(ModelAndView mv) {
+	public ModelAndView outAdd(
+			ModelAndView mv
+			) {
 
 		//データベースに支出データ追加
+		Integer id = (Integer) session.getAttribute("user.getId()");
+		//登録するデータのインスタンスを生成
+		//money m_data = new money(id,category,2,date,cost);
+
+		//categoryエンティティをテーブルに登録
+		//moneyRepository.saveAndFlush(m_data);
 
 
 		//支出一覧表示
@@ -176,10 +196,10 @@ public class ExpensesConotroller {
 			return mv;
 
 		}else {
+			Integer id = (Integer) session.getAttribute("user.getId()");
 
 			//登録するデータのインスタンスを生成
-			Category category = new Category(name);
-
+			Category category = new Category(id,name);
 
 			//categoryエンティティをテーブルに登録
 			categoryRepository.saveAndFlush(category);
@@ -193,8 +213,10 @@ public class ExpensesConotroller {
 	@GetMapping("/month")
 	public ModelAndView monthView(ModelAndView mv) {
 
+		Integer id = (Integer) session.getAttribute("user.getId()");
+
 		//月間レポートテーブルから全データ取得
-		List<Month> monthList = monthRepository.findAll();
+		List<Month> monthList = monthRepository.findByIdLike(id);
 
 		mv.addObject("monthList", monthList);
 
@@ -209,8 +231,10 @@ public class ExpensesConotroller {
 	@GetMapping("/year")
 	public ModelAndView yearView(ModelAndView mv) {
 
+		Integer id = (Integer) session.getAttribute("user.getId()");
+
 		//月間レポートテーブルから全データ取得
-		List<Year> yearList = yearRepository.findAll();
+		List<Year> yearList = yearRepository.findByIdLike(id);
 
 		mv.addObject("yearList", yearList);
 

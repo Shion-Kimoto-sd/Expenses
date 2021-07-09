@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MonthRepository extends JpaRepository<Month, Integer> {
-	List<Month> findByidLike(String id);
+	List<Month> findByIdLike(Integer id);
 }
