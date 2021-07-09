@@ -217,34 +217,64 @@ public class ExpensesConotroller {
 	@PostMapping("/updata")
 	public ModelAndView Updata(
 			@RequestParam("code") Integer code,
-			@RequestParam("date") String date,
+			@RequestParam("year") String year,
+			@RequestParam("month") String month,
+			@RequestParam("date") String day,
 			@RequestParam("category") String category,
 			@RequestParam("cost") Integer cost,
+			@RequestParam("flug") Integer flug,//更新されたのが収入か支出か
 			ModelAndView mv
 			) {
+		String d = year + "/" + month + "/" + day;
+
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = null;
+		try {
+			date = sdFormat.parse(d);
+		} catch (ParseException e) {
+			System.out.println("日付の変換で失敗");
+		}
+
+		//データベースに支出データ追加
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
+		//登録するデータのインスタンスを生成
+		Money m_data = new Money(code,uid,flug,date,category,cost);
+
+		//categoryエンティティをテーブルに登録
+		moneyRepository.saveAndFlush(m_data);
 
 		//更新後一覧表示
-		return top(mv);
+		if(flug == 1) {//収入一覧
+
+			return inDisp(mv);
+
+		}else {//支出一覧
+
+			return outDisp(mv);
+		}
 	}
 
 
-	//moneydetailテーブル要素削除-----------------------------------------------
-		@PostMapping("/delete")
-		public ModelAndView Delete(
-				@RequestParam("code") Integer code,
-				@RequestParam("flug") Integer flug,
-				ModelAndView mv
-				) {
-			moneyRepository.deleteById(code);
+//moneydetailテーブル要素削除-----------------------------------------------
+	@PostMapping("/delete")
+	public ModelAndView Delete(
+			@RequestParam("code") Integer code,
+			@RequestParam("flug") Integer flug,
+			ModelAndView mv
+			) {
+		moneyRepository.deleteById(code);
 
-			//更新後一覧表示
-			if(flug == 1) {//収入一覧
+		//更新後一覧表示
+		if(flug == 1) {//収入一覧
 
-				return inDisp(mv);
-			}else {//支出一覧
-				return outDisp(mv);
-			}
+			return inDisp(mv);
+		}else {//支出一覧
+			return outDisp(mv);
 		}
+	}
 
 
 //カテゴリー新規登録画面へ----------------------------------------------
