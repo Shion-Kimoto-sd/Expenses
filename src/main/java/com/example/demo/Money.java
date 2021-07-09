@@ -18,7 +18,7 @@ public class Money {
 	private Integer code;
 
 	@Column(name="uid")
-	private Integer id;
+	private Integer uid;
 
 	@Column(name="category")
 	private String category;
@@ -38,7 +38,7 @@ public class Money {
 	public Money(Integer code, Integer id, Integer flug, Date date,String category, Integer cost) {
 		super();
 		this.code = code;
-		this.id = id;
+		this.uid = id;
 		this.category = category;
 		this.flug = flug;
 		this.date = date;
@@ -49,7 +49,7 @@ public class Money {
 
 	public Money(Integer id, Integer flug, Date date,String category, Integer cost) {
 		super();
-		this.id = id;
+		this.uid = id;
 		this.category = category;
 		this.flug = flug;
 		this.date = date;
@@ -64,12 +64,12 @@ public class Money {
 		this.code = code;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getUid() {
+		return uid;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUid(Integer id) {
+		this.uid = id;
 	}
 
 	public String getCategory() {

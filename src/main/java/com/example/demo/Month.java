@@ -17,7 +17,7 @@ public class Month {
 	private Integer code;
 
 	@Column(name="uid")
-	private Integer id;
+	private Integer uid;
 
 
 	@Column(name="year")
@@ -39,7 +39,7 @@ public class Month {
 
 	public Month(Integer id, Integer year, Integer month, Integer intotal, Integer outtotal, Integer total) {
 		super();
-		this.id = id;
+		this.uid = id;
 		this.year = year;
 		this.month = month;
 		this.intotal = intotal;
@@ -63,13 +63,13 @@ public class Month {
 	}
 
 
-	public Integer getId() {
-		return id;
+	public Integer getUid() {
+		return uid;
 	}
 
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUid(Integer id) {
+		this.uid = id;
 	}
 
 

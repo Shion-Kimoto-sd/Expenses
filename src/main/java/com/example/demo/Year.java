@@ -19,7 +19,7 @@ public class Year {
 	private Integer code;
 
 	@Column(name="uid")
-	private Integer id;
+	private Integer uid;
 
 
 	@Column(name="year")
@@ -52,11 +52,28 @@ public class Year {
 
 	public Year(Integer id, String category, Integer flug, Date date, Integer cost) {
 		super();
-		this.id = id;
+		this.uid = id;
 		this.category = category;
 		this.flug = flug;
 		this.date = date;
 		this.cost = cost;
+	}
+
+
+	public Integer getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 
 	public Integer getCode() {
