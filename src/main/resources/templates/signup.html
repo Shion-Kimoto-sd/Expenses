@@ -6,15 +6,13 @@
 </head>
 <body>
 	<h1>会員登録</h1>
-
+	<div th:if="${message != null}">
+		<span th:text="${message}" style="color:red"></span>
+	</div>
 	<form action="/signup" method="post">
 		<table border="1">
 			<tr>
-				<th>ユーザID</th>
-				<td><input type="text" name="USER_ID"></td>
-			</tr>
-			<tr>
-				<th>名前</th>
+				<th>ユーザー名</th>
 				<td><input type="text" name="NAME"></td>
 			</tr>
 			<tr>
@@ -23,7 +21,7 @@
 			</tr>
 		</table>
 
-		<br> <input type="submit" value="ログイン">
+		<br> <input type="submit" value="登録">
 
 	</form>
 

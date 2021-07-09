@@ -42,13 +42,13 @@ public class AccountController {
 			//登録するデータのインスタンスを生成
 			Account account = new Account(name, pass);
 			session.setAttribute("account", account);
-			mv.addObject("messege", "登録が完了しました。");
+			mv.addObject("message", "登録が完了しました。");
 
 			//accountエンティティをテーブルに登録
 			accountRepository.saveAndFlush(account);
 			mv.setViewName("login");
 		} else {
-			mv.addObject("messege", "未入力の項目があります。");
+			mv.addObject("message", "未入力の項目があります。");
 			mv.setViewName("signup");
 		}
 		return mv;
