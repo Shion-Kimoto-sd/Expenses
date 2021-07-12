@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ public class Money {
 	private Integer flug;
 
 	@Column(name="date")
-	private Date date;
+	private LocalDate date;
 
 	@Column(name="cost")
 	private Integer cost;
@@ -35,7 +35,7 @@ public class Money {
 	public Money() {
 
 	}
-	public Money(Integer code, Integer id, Integer flug, Date date,String category, Integer cost) {
+	public Money(Integer code, Integer id, Integer flug, LocalDate date,String category, Integer cost) {
 		super();
 		this.code = code;
 		this.uid = id;
@@ -47,7 +47,7 @@ public class Money {
 
 
 
-	public Money(Integer id, Integer flug, Date date,String category, Integer cost) {
+	public Money(Integer id, Integer flug, LocalDate date,String category, Integer cost) {
 		super();
 		this.uid = id;
 		this.category = category;
@@ -88,11 +88,15 @@ public class Money {
 		this.flug = flug;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public LocalDate getViewDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

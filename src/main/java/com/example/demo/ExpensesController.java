@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,13 +103,11 @@ public class ExpensesController {
 		}
 
 
-		String d = year + "/" + month + "/" + day;
 
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = null;
+        LocalDate date = null;
 		try {
-			date = sdFormat.parse(d);
-		} catch (ParseException e) {
+			date = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+		} catch (Exception e) {
 			System.out.println("日付の変換で失敗");
 		}
 		Account user = (Account) session.getAttribute("user");
@@ -199,13 +195,11 @@ public class ExpensesController {
 			return outMoney(mv);
 		}
 
-		String d = year + "/" + month + "/" + day;
+        LocalDate date = null;
 
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = null;
 		try {
-			date = sdFormat.parse(d);
-		} catch (ParseException e) {
+			date = LocalDate.of(Integer.parseInt(year),Integer.parseInt(month),Integer.parseInt(day));
+		} catch (Exception e) {
 			System.out.println("日付の変換で失敗");
 		}
 
@@ -223,6 +217,7 @@ public class ExpensesController {
 		//追加したデータのcodeを取り出す作業
 		int code = 0;
 		List<Money> mlist = moneyRepository.findAll();
+
 		for(Money m : mlist) {
 			if(m.getUid()==uid && m.getFlug()==2 && m.getDate()==date && m.getCategory().equals(category) && m.getCost()== cost) {
 				code = m.getCode();
@@ -287,14 +282,10 @@ public class ExpensesController {
 			return UpdateDisp(code,mv);
 		}
 
-
-		String d = year + "/" + month + "/" + day;
-
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = null;
+        LocalDate date = null;
 		try {
-			date = sdFormat.parse(d);
-		} catch (ParseException e) {
+			date = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+		} catch (Exception e) {
 			System.out.println("日付の変換で失敗");
 		}
 
@@ -302,6 +293,9 @@ public class ExpensesController {
 		Account user = (Account) session.getAttribute("user");
 
 		Integer uid = user.getCode();
+
+		//月間レポートテーブル更新処理メソッド呼び出し
+		UpdateMonth(code);
 
 		//登録するデータのインスタンスを生成
 		Money m_data = new Money(code,uid,flug,date,category,cost);
@@ -328,6 +322,10 @@ public class ExpensesController {
 			@RequestParam("flug") Integer flug,
 			ModelAndView mv
 			) {
+
+		//月間レポートテーブル変更メソッド呼び出し
+		minusMonth(code);
+
 		moneyRepository.deleteById(code);
 
 		//更新後一覧表示
@@ -463,13 +461,11 @@ public class ExpensesController {
 		Optional<Money> moneyList = moneyRepository.findById(code);
 		Money mList = moneyList.get();
 
-		Date date = mList.getDate();
+		LocalDate date = mList.getDate();
 
-		@SuppressWarnings("deprecation")
 		Integer year = date.getYear();
 
-		@SuppressWarnings("deprecation")
-		Integer month = date.getMonth();
+		Integer month = date.getMonthValue();
 
 		//ログインしているユーザの月間レポート取得
 		List<Month> monthTotal = monthRepository.findByUid(uid);
@@ -521,6 +517,65 @@ public class ExpensesController {
 		return ;
 	}
 
+	//月間レポート更新---------------------------------------------
+	public void UpdateMonth(Integer code) {
+
+		return;
+	}
+
+	//月間レポート金額減少処理-------------------------------------
+	public void minusMonth(Integer code) {
+
+		//ログインしているアカウントを判定
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
+		//収入・支出テーブルから追加したデータ取得
+		Optional<Money> moneyList = moneyRepository.findById(code);
+		Money mList = moneyList.get();
+
+		LocalDate date = mList.getDate();
+
+		Integer year = date.getYear();
+
+		Integer month = date.getMonthValue();
+		//ログインしているユーザの月間レポート取得
+		List<Month> monthTotal = monthRepository.findByUid(uid);
+
+		//同じyear,monthのデータがあるか捜査
+		for(Month mindex : monthTotal ) {
+			if(mindex.getYear() == year && mindex.getMonth() == month ) {
+				//データ更新
+
+
+				//月間レポートテーブルの要素を減算
+				if(mList.getFlug() == 1) {//収入
+					Integer intotal = mindex.getIntotal()- mList.getCost();
+					Integer outtotal = mindex.getOuttotal();
+
+
+					Month newMonth = new Month(mindex.getCode(),uid,year,month,intotal,outtotal,intotal - outtotal);
+
+					monthRepository.saveAndFlush(newMonth);
+				}else {//支出
+
+					Integer intotal = mindex.getIntotal();
+					Integer outtotal = mindex.getOuttotal()- mList.getCost();
+
+					Month newMonth = new Month(mindex.getCode(),uid,year,month,intotal,outtotal,intotal - outtotal);
+
+					monthRepository.saveAndFlush(newMonth);
+
+				}
+
+				return;
+			}
+		}
+
+
+		return;
+	}
 
 
 }

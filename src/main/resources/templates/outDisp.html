@@ -15,7 +15,7 @@
 			<td>削除</td>
 		<tr>
 		<tr th:each="mList:${moneyList}">
-			<td th:if="${mList.flug == 2}" th:text="${mList.date}"></td>
+			<td th:if="${mList.flug == 2}" th:text="${mList.viewDate}"></td>
 			<td th:if="${mList.flug == 2}" th:text="${mList. category}"></td>
 			<td th:if="${mList.flug == 2}" th:text="${mList.cost}"></td>
 			<td th:if="${mList.flug == 2}">
