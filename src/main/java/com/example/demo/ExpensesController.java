@@ -123,6 +123,19 @@ public class ExpensesController {
 
 		//収入データをテーブルに登録
 		moneyRepository.saveAndFlush(m_data);
+
+		//追加したデータのcodeを取り出す作業
+		int code = 0;
+		List<Money> mlist = moneyRepository.findAll();
+		for(Money m : mlist) {
+			if(m.getUid()==uid && m.getFlug()==1 && m.getDate()==date && m.getCategory().equals(category) && m.getCost()== cost) {
+				code = m.getCode();
+			}
+		}
+
+
+		addMonth(code);
+
 		//収入一覧表示
 		return inDisp(mv);
 	}
@@ -206,6 +219,17 @@ public class ExpensesController {
 
 		//categoryエンティティをテーブルに登録
 		moneyRepository.saveAndFlush(m_data);
+
+		//追加したデータのcodeを取り出す作業
+		int code = 0;
+		List<Money> mlist = moneyRepository.findAll();
+		for(Money m : mlist) {
+			if(m.getUid()==uid && m.getFlug()==2 && m.getDate()==date && m.getCategory().equals(category) && m.getCost()== cost) {
+				code = m.getCode();
+			}
+		}
+
+		addMonth(code);
 
 
 		//支出一覧表示
@@ -426,6 +450,75 @@ public class ExpensesController {
 		mv.setViewName("year");
 
 		return mv;
+	}
+
+	//月間レポート新規登録&金額追加--------------------------------
+	public void addMonth(int code/*追加したデータのcodeを取得*/) {
+		//ログインしているアカウントを判定
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
+		//収入・支出テーブルから追加したデータ取得
+		Optional<Money> moneyList = moneyRepository.findById(code);
+		Money mList = moneyList.get();
+
+		Date date = mList.getDate();
+
+		@SuppressWarnings("deprecation")
+		Integer year = date.getYear();
+
+		@SuppressWarnings("deprecation")
+		Integer month = date.getMonth();
+
+		//ログインしているユーザの月間レポート取得
+		List<Month> monthTotal = monthRepository.findByUid(uid);
+
+
+		//同じyear,monthのデータがあるか捜査
+		for(Month mindex : monthTotal ) {
+			if(mindex.getYear() == year && mindex.getMonth() == month ) {
+				//データ更新
+
+
+				if(mList.getFlug() == 1) {//収入
+					Integer intotal = mindex.getIntotal()+ mList.getCost();
+					Integer outtotal = mindex.getOuttotal();
+
+
+					Month newMonth = new Month(mindex.getCode(),uid,year,month,intotal,outtotal,intotal - outtotal);
+
+					monthRepository.saveAndFlush(newMonth);
+				}else {//支出
+
+					Integer intotal = mindex.getIntotal();
+					Integer outtotal = mindex.getOuttotal()+ mList.getCost();
+
+					Month newMonth = new Month(mindex.getCode(),uid,year,month,intotal,outtotal,intotal - outtotal);
+
+					monthRepository.saveAndFlush(newMonth);
+
+				}
+
+				return;
+			}
+		}
+
+		//同一データがなかった(新規作成
+		if(mList.getFlug() == 2) {//支出追加
+			Integer intotal = 0;
+			Month newMonth = new Month(uid,year,month,intotal,mList.getCost(),intotal - mList.getCost());
+
+			monthRepository.saveAndFlush(newMonth);
+
+		}else {//収入追加
+			Integer outtotal = 0;
+			Month newMonth = new Month(uid,year,month,mList.getCost(),outtotal,mList.getCost()- outtotal);
+
+			monthRepository.saveAndFlush(newMonth);
+		}
+
+		return ;
 	}
 
 

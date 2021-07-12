@@ -48,6 +48,19 @@ public class Month {
 	}
 
 
+	public Month(Integer code, Integer uid, Integer year, Integer month, Integer intotal, Integer outtotal,
+			Integer total) {
+		super();
+		this.code = code;
+		this.uid = uid;
+		this.year = year;
+		this.month = month;
+		this.intotal = intotal;
+		this.outtotal = outtotal;
+		this.total = total;
+	}
+
+
 	public Month() {
 
 	}
