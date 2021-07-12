@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ExpensesConotroller {
+public class ExpensesController {
 
 	@Autowired
 	HttpSession session;
@@ -220,10 +220,21 @@ public class ExpensesConotroller {
 			ModelAndView mv
 			) {
 
+
 		Optional<Money> moneyList = moneyRepository.findById(code);
 
 		Money money = moneyList.get();
 
+		//セッションからログイン中ユーザのID取得
+		Account user = (Account) session.getAttribute("user");
+		Integer uid = user.getCode();
+
+		//カテゴリーテーブルから全データ取得
+		List<Category> categoryList = categoryRepository.findByUid(uid);
+
+		mv.addObject("category", categoryList);
+
+		//更新するデータのIDと収入・支出の判定Flugをadd
 		mv.addObject("flug",money.getFlug() );
 		mv.addObject("code", code);
 
