@@ -7,26 +7,26 @@
 <body>
 	<h1>更新</h1>
 	<form action="/update" method="POST">
-		<input type="hidden" name="code" th:value="${code}">
-		<input type="hidden" name="flug" th:value="${flug}">
+		<input type="hidden" name="code" th:value="${code}"> <input
+			type="hidden" name="flug" th:value="${flug}">
 		<table border="1">
 			<tr>
-				<td>年</td>
-				<td><input type="text" name="year"></td>
-			</tr>
-			<tr>
-				<td>月</td>
-				<td><input type="text" name="month"></td>
-			</tr>
-			<tr>
-				<td>日</td>
-				<td><input type="text" name="date"></td>
-			</tr>
-			<tr>
-				<td>カテゴリ</td>
-				<td><input type="text" name="category"></td>
-			</tr>
-			<tr>
+				<td><select name="year">
+						<option th:each="i : ${#numbers.sequence(2020,2030 )}"
+							th:value="${i}" th:text="${i}"></option>
+				</select></td>
+				<td><select name="month">
+						<option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
+							th:text="${i}"></option>
+				</select></td>
+				<td><select name="date">
+						<option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}"
+							th:text="${i}"></option>
+				</select>
+				<td><select name="category">
+						<option th:each="cList:${category}" th:value="${cList.name}"
+							th:text="${cList.name}"></option>
+				</select></td>
 				<td>金額</td>
 				<td><input type="text" name="cost"></td>
 			</tr>
