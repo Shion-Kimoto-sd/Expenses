@@ -92,17 +92,16 @@ public class ExpensesConotroller {
 	public ModelAndView inAdd(
 			ModelAndView mv,
 			@RequestParam("category") String category,
-			@RequestParam("money") Integer cost,
+			@RequestParam(name = "money"  ,defaultValue = "0") Integer cost,
 			@RequestParam("year") String year,
 			@RequestParam("month") String month,
 			@RequestParam("date") String day
-			) {
+			)throws Exception {
 
-		// 名前が空の場合にエラーとする
-		if (year.equals("") || month.equals("") || day.equals("") ) {
-			mv.addObject("message", "未記入の情報があります。");
-			mv.setViewName("in");
-			return mv;
+		//金額が入力されていない場合の処理
+		if(cost == 0) {
+			System.out.println("costが空");
+			return inMoney(mv);
 		}
 
 
@@ -175,11 +174,18 @@ public class ExpensesConotroller {
 	public ModelAndView outAdd(
 			ModelAndView mv,
 			@RequestParam("category") String category,
-			@RequestParam("money") Integer cost,
+			@RequestParam(name = "money" , defaultValue = "0") Integer cost,
 			@RequestParam("year") String year,
 			@RequestParam("month") String month,
 			@RequestParam("date") String day
-			) {
+			)throws Exception {
+
+		//金額が入力されていない場合の処理
+		if(cost == 0) {
+			System.out.println("costが空");
+			return outMoney(mv);
+		}
+
 		String d = year + "/" + month + "/" + day;
 
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -235,15 +241,13 @@ public class ExpensesConotroller {
 			@RequestParam("month") String month,
 			@RequestParam("date") String day,
 			@RequestParam("category") String category,
-			@RequestParam("cost") Integer cost,
+			@RequestParam(name = "cost" , defaultValue = "0") Integer cost,
 			@RequestParam("flug") Integer flug,//更新されたのが収入か支出か
 			ModelAndView mv
 			) {
 
-		System.out.println("flug=" + flug);
-		System.out.println("code="+code);
 		// 要素が空の場合にエラーとする
-		if (cost == null || year.equals("") || year.length() == 0 || month.equals("") || month.length() == 0 || day.equals("") || day.length()==0) {
+		if (cost == 0 || year.equals("") || year.length() == 0 || month.equals("") || month.length() == 0 || day.equals("") || day.length()==0) {
 
 			return UpdateDisp(code,mv);
 		}
