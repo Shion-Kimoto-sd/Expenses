@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,37 +26,43 @@ public class Year {
 	@Column(name="intotal")
 	private String category;
 
-	@Column(name="flug")
-	private Integer flug;
+	@Column(name="outtotal")
+	private Integer outtotal;
 
-	@Column(name="date")
-	private Date date;
-
-	@Column(name="cost")
-	private Integer cost;
+	@Column(name="total")
+	private Integer total;
 
 	//コンストラクタ
-	public Year(String category, Integer flug, Date date, Integer cost) {
+	public Year(Integer code, Integer uid, Integer year, String category, Integer outtotal, Integer total) {
 		super();
+		this.code = code;
+		this.uid = uid;
+		this.year = year;
 		this.category = category;
-		this.flug = flug;
-		this.date = date;
-		this.cost = cost;
+		this.outtotal = outtotal;
+		this.total = total;
+	}
+
+	public Year(Integer uid, Integer year, String category, Integer outtotal, Integer total) {
+		super();
+		this.uid = uid;
+		this.year = year;
+		this.category = category;
+		this.outtotal = outtotal;
+		this.total = total;
 	}
 
 	public Year() {
 
 	}
 
-	public Year(Integer id, String category, Integer flug, Date date, Integer cost) {
-		super();
-		this.uid = id;
-		this.category = category;
-		this.flug = flug;
-		this.date = date;
-		this.cost = cost;
+	public Integer getCode() {
+		return code;
 	}
 
+	public void setCode(Integer code) {
+		this.code = code;
+	}
 
 	public Integer getUid() {
 		return uid;
@@ -76,14 +80,6 @@ public class Year {
 		this.year = year;
 	}
 
-	public Integer getCode() {
-		return code;
-	}
-
-	public void setCode(Integer code) {
-		this.code = code;
-	}
-
 	public String getCategory() {
 		return category;
 	}
@@ -92,29 +88,23 @@ public class Year {
 		this.category = category;
 	}
 
-	public Integer getFlug() {
-		return flug;
+	public Integer getOuttotal() {
+		return outtotal;
 	}
 
-	public void setFlug(Integer flug) {
-		this.flug = flug;
+	public void setOuttotal(Integer outtotal) {
+		this.outtotal = outtotal;
 	}
 
-	public Date getDate() {
-		return date;
+	public Integer getTotal() {
+		return total;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
-	public Integer getCost() {
-		return cost;
-	}
 
-	public void setCost(Integer cost) {
-		this.cost = cost;
-	}
 
 
 

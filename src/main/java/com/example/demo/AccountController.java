@@ -23,6 +23,7 @@ public class AccountController {
 	AccountRepository accountRepository;
 
 	//新規会員登録画面-------------------------------------------------------------
+	//http://localhost:8080/signup
 	@GetMapping("/signup")
 	public ModelAndView signup(ModelAndView mv) {
 
@@ -32,6 +33,7 @@ public class AccountController {
 		return mv;
 	}
 
+	//新規登録処理
 	@PostMapping("/signup")
 	public ModelAndView signup(
 			ModelAndView mv,

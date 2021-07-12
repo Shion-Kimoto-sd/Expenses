@@ -35,7 +35,7 @@ public class ExpensesConotroller {
 
 
 //トップページへ-------------------------------------------------------------
-	//http://localhost:8080/
+	//http://localhost:8080/g
 	@GetMapping("/")
 	public ModelAndView top(ModelAndView mv) {
 
