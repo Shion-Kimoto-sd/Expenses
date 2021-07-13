@@ -10,6 +10,10 @@
 		<option th:each="i : ${#numbers.sequence(2020,2030 )}" th:value="${i}"
 			th:text="${i}"></option>
 	</select>
+	<select name="month">
+		<option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
+			th:text="${i}"></option>
+	</select>
 	<input type="submit" value="更新">
 	<table border="1">
 		<tr>

@@ -6,8 +6,12 @@
 </head>
 <body>
 	<h1>年間レポート</h1>
-	<table border="1">
 	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	<select name="year">
+		<option th:each="i : ${#numbers.sequence(2020,2030 )}" th:value="${i}"
+			th:text="${i}"></option>
+	</select>
+	<table border="1">
 		<tr>
 			<td>年</td>
 			<td>収入合計</td>
