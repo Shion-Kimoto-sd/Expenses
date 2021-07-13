@@ -1,62 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="icon" type="image/x-icon" href="image/neco.jpeg">
 <link th:href="@{/css/style.css}" rel="stylesheet">
 <meta charset="UTF-8">
-<title>トップ画面</title>
+<title>KAKEINEKOTOP</title>
 </head>
 <body>
 
 	<h1>KAKEINEKO</h1>
 	<br>
-	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
+	<br>
 
-	<form action="/newCategory">
-		<p>
-			<input type="submit" value="新規カテゴリ登録">
-		</p>
-	</form>
-	<form action="/in">
-		<p>
-			<input type="submit" value="新規収入入力">
-		</p>
-	</form>
-	<form action="/inDisp">
-		<p>
-			<input type="submit" value="収入一覧表示">
-		</p>
-	</form>
-	<form action="/out">
-		<p>
-			<input type="submit" value="新規支出入力">
-		</p>
-	</form>
-	<form action="/outDisp">
-		<p>
-			<input type="submit" value="支出一覧表示">
-		</p>
-	</form>
-	<form action="/CategoryDisp">
-		<p>
-			<input type="submit" value="登録カテゴリ一覧">
-		</p>
-	</form>
-	<form action="/month">
-		<p>
-			<input type="submit" value="月間レポート">
-		</p>
-	</form>
-	<form action="/year">
-		<p>
-			<input type="submit" value="年間レポート">
-		</p>
-	</form>
-	<form action="/logout">
-		<p>
-			<input type="submit" value="ログアウト">
-		</p>
-	</form>
+	<a href="/newCategory" class="btn bgskew"><span>新規カテゴリ登録</span></a>
 
+	<a href="/in" class="btn bgskew"><span>新規収入入力</span></a>
+
+	<a href="/inDisp" class="btn bgskew"><span>収入一覧表示</span></a>
+	<br>
+
+	<a href="/out" class="btn bgskew"><span>新規支出入力</span></a>
+
+	<a href="/outDisp" class="btn bgskew"><span>支出一覧表示</span></a>
+
+	<a href="/CategoryDisp" class="btn bgskew"><span>登録カテゴリ一覧</span></a>
+	<br>
+
+	<a href="/month" class="btn bgskew"><span>月間レポート</span></a>
+
+	<a href="/year" class="btn bgskew"><span>年間レポート</span></a>
+
+	<a href="/logout" class="btn bgskew"><span>ログアウト</span></a>
 
 </body>
 </html>
