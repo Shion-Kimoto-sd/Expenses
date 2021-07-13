@@ -61,3 +61,41 @@ p {
 		left:-10%;/*画面の見えていない左から右へ移動する終了地点*/
 	}
 }
+
+/*テーブルデザイン*/
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  padding: 0;
+  width: 650px;
+  table-layout: fixed;
+  color: #000;
+}
+
+table th {
+  padding: 15px 0;
+  border-right: 1px solid #bbb;
+  text-align: center;
+}
+
+table tr {
+  background-color: #fff;
+  padding: 30px;
+  border-bottom: 1px solid #bbb;
+}
+
+table tr:last-child{
+   border-bottom: none
+}
+
+table td {
+  padding: 1em 10px 1em 1em;
+  border-right: 1px solid #bbb;
+  text-align: center;
+}
+
+table th:last-child,
+table td:last-child{
+  border: none;
+}
