@@ -129,8 +129,11 @@ public class ExpensesController {
 			}
 		}
 
-
+		//月間レポートテーブルに登録
 		addMonth(code);
+
+		//年間レポートテーブルに登録
+		addYear(code);
 
 		//収入一覧表示
 		return inDisp(mv);
@@ -224,7 +227,11 @@ public class ExpensesController {
 			}
 		}
 
+		//月間レポートテーブルに登録
 		addMonth(code);
+
+		//年間レポートテーブルに登録
+		addYear(code);
 
 
 		//支出一覧表示
@@ -296,6 +303,8 @@ public class ExpensesController {
 
 		//月間レポートテーブル更新処理メソッド呼び出し
 		UpdateMonth(code,flug,cost);
+		//年間レポートテーブル更新処理メソッド呼び出し
+		UpdateYear(code,flug,cost);
 
 		//登録するデータのインスタンスを生成
 		Money m_data = new Money(code,uid,flug,date,category,cost);
@@ -325,6 +334,8 @@ public class ExpensesController {
 
 		//月間レポートテーブル変更メソッド呼び出し
 		minusMonth(code);
+		//年間レポートテーブル変更メソッド呼び出し
+		minusYear(code);
 
 		moneyRepository.deleteById(code);
 
@@ -429,28 +440,6 @@ public class ExpensesController {
 
 		//month.htmlへ
 		mv.setViewName("month");
-
-		return mv;
-	}
-
-//年間レポートへ-------------------------------------------
-	@GetMapping("/year")
-	public ModelAndView yearView(ModelAndView mv) {
-
-
-		//年間レポートテーブルから全データ取得
-		Account user = (Account) session.getAttribute("user");
-
-		Integer uid = user.getCode();
-
-		//カテゴリーテーブルから全データ取得
-
-		List<Year> yearList = yearRepository.findByUid(uid);
-
-		mv.addObject("yearList", yearList);
-
-		//year.htmlへ
-		mv.setViewName("year");
 
 		return mv;
 	}
@@ -633,6 +622,198 @@ public class ExpensesController {
 		}
 		return;
 	}
+
+	//年間レポートへ-------------------------------------------
+		@GetMapping("/year")
+		public ModelAndView yearView(ModelAndView mv) {
+
+
+			//年間レポートテーブルから全データ取得
+			Account user = (Account) session.getAttribute("user");
+
+			Integer uid = user.getCode();
+
+			//カテゴリーテーブルから全データ取得
+
+			List<Year> yearList = yearRepository.findByUid(uid);
+
+			mv.addObject("yearList", yearList);
+
+			//year.htmlへ
+			mv.setViewName("year");
+
+			return mv;
+		}
+
+		//年間レポート新規登録&金額追加--------------------------------
+		public void addYear(int code/*追加したデータのcodeを取得*/) {
+			//ログインしているアカウントを判定
+			Account user = (Account) session.getAttribute("user");
+
+			Integer uid = user.getCode();
+
+			//収入・支出テーブルから追加したデータ取得
+			Optional<Money> moneyList = moneyRepository.findById(code);
+			Money mList = moneyList.get();
+
+			LocalDate date = mList.getDate();
+
+			int year = date.getYear();
+
+			//ログインしているユーザの年間レポート取得
+			List<Year> yearTotal = yearRepository.findByUid(uid);
+
+
+			//同じyearのデータがあるか捜査
+			for(Year yindex : yearTotal ) {
+
+				if(yindex.getYear() == year) {
+					//データ更新
+
+					if(mList.getFlug() == 1) {//収入
+						Integer intotal = yindex.getIntotal()+ mList.getCost();
+						Integer outtotal = yindex.getOuttotal();
+
+
+						Year newYear = new Year(yindex.getCode(),uid,year,intotal,outtotal,intotal - outtotal);
+
+						yearRepository.saveAndFlush(newYear);
+					}else {//支出
+
+						Integer intotal = yindex.getIntotal();
+						Integer outtotal = yindex.getOuttotal()+ mList.getCost();
+
+						Year newYear = new Year(yindex.getCode(),uid,year,intotal,outtotal,intotal - outtotal);
+
+						yearRepository.saveAndFlush(newYear);
+
+					}
+
+					return;
+				}
+			}
+
+			//同一データがなかった(新規作成
+			if(mList.getFlug() == 2) {//支出追加
+				Integer intotal = 0;
+				Year newYear = new Year(uid,year,intotal,mList.getCost(),intotal - mList.getCost());
+
+				yearRepository.saveAndFlush(newYear);
+
+			}else {//収入追加
+				Integer outtotal = 0;
+				Year newYear = new Year(uid,year,mList.getCost(),outtotal,mList.getCost()- outtotal);
+
+				yearRepository.saveAndFlush(newYear);
+			}
+
+			return ;
+		}
+
+		//年間レポート更新---------------------------------------------
+		public void UpdateYear(Integer code,Integer flug,Integer cost) {
+
+			//ログインしているアカウントを判定
+			Account user = (Account) session.getAttribute("user");
+
+			Integer uid = user.getCode();
+
+			//収入・支出テーブルから追加したデータ取得
+			Optional<Money> moneyList = moneyRepository.findById(code);
+			Money mList = moneyList.get();
+
+			LocalDate date = mList.getDate();
+
+			int year = date.getYear();
+
+			//ログインしているユーザの年間レポート取得
+			List<Year> yearTotal = yearRepository.findByUid(uid);
+
+
+			//同じyearのデータがあるか捜査
+			for(Year yindex : yearTotal ) {
+
+				if(yindex.getYear() == year) {
+					//データ更新
+
+					if(flug == 1) {//収入
+						//更新前の金額を引き、更新後の値を足す
+						Integer intotal = (yindex.getIntotal()- mList.getCost()) + cost;
+						Integer outtotal = yindex.getOuttotal();
+
+
+						Year newYear = new Year(yindex.getCode(),uid,year,intotal,outtotal,intotal - outtotal);
+
+						yearRepository.saveAndFlush(newYear);
+					}else {//支出
+
+						Integer intotal = yindex.getIntotal();
+						//更新前の金額を引き、更新後の値を足す
+						Integer outtotal = (yindex.getOuttotal() - mList.getCost()) + cost;
+
+						Year newYear = new Year(yindex.getCode(),uid,year,intotal,outtotal,intotal - outtotal);
+
+						yearRepository.saveAndFlush(newYear);
+
+					}
+
+					return;
+				}
+			}
+
+			return;
+		}
+
+		//年間レポート金額減少処理-------------------------------------
+		public void minusYear(Integer code) {
+
+			//ログインしているアカウントを判定
+			Account user = (Account) session.getAttribute("user");
+
+			Integer uid = user.getCode();
+
+			//収入・支出テーブルから追加したデータ取得
+			Optional<Money> moneyList = moneyRepository.findById(code);
+			Money mList = moneyList.get();
+
+			LocalDate date = mList.getDate();
+
+			int year = date.getYear();
+
+			//ログインしているユーザの年間レポート取得
+			List<Year> yearTotal = yearRepository.findByUid(uid);
+
+			//同じyearのデータがあるか捜査
+			for(Year yindex : yearTotal ) {
+				if(yindex.getYear() == year) {
+					//データ更新
+
+
+					//年間レポートテーブルの要素を減算
+					if(mList.getFlug() == 1) {//収入
+						Integer intotal = yindex.getIntotal()- mList.getCost();
+						Integer outtotal = yindex.getOuttotal();
+
+
+						Year newYear = new Year(yindex.getCode(),uid,year,intotal,outtotal,intotal - outtotal);
+
+						yearRepository.saveAndFlush(newYear);
+					}else {//支出
+
+						Integer intotal = yindex.getIntotal();
+						Integer outtotal = yindex.getOuttotal()- mList.getCost();
+
+						Year newYear = new Year(yindex.getCode(),uid,year,intotal,outtotal,intotal - outtotal);
+
+						yearRepository.saveAndFlush(newYear);
+
+					}
+
+					return;
+				}
+			}
+			return;
+		}
 
 
 }

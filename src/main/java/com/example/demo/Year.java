@@ -24,7 +24,7 @@ public class Year {
 	private Integer year;
 
 	@Column(name="intotal")
-	private String category;
+	private Integer intotal;
 
 	@Column(name="outtotal")
 	private Integer outtotal;
@@ -33,21 +33,21 @@ public class Year {
 	private Integer total;
 
 	//コンストラクタ
-	public Year(Integer code, Integer uid, Integer year, String category, Integer outtotal, Integer total) {
+	public Year(Integer code, Integer uid, Integer year, Integer intotal, Integer outtotal, Integer total) {
 		super();
 		this.code = code;
 		this.uid = uid;
 		this.year = year;
-		this.category = category;
+		this.intotal = intotal;
 		this.outtotal = outtotal;
 		this.total = total;
 	}
 
-	public Year(Integer uid, Integer year, String category, Integer outtotal, Integer total) {
+	public Year(Integer uid, Integer year, Integer intotal, Integer outtotal, Integer total) {
 		super();
 		this.uid = uid;
 		this.year = year;
-		this.category = category;
+		this.intotal = intotal;
 		this.outtotal = outtotal;
 		this.total = total;
 	}
@@ -80,12 +80,12 @@ public class Year {
 		this.year = year;
 	}
 
-	public String getCategory() {
-		return category;
+	public Integer getIntotal() {
+		return intotal;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setIntotal(Integer intotal) {
+		this.intotal = intotal;
 	}
 
 	public Integer getOuttotal() {
