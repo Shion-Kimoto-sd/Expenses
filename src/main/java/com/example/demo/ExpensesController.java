@@ -295,7 +295,7 @@ public class ExpensesController {
 		Integer uid = user.getCode();
 
 		//月間レポートテーブル更新処理メソッド呼び出し
-		UpdateMonth(code);
+		UpdateMonth(code,flug,cost);
 
 		//登録するデータのインスタンスを生成
 		Money m_data = new Money(code,uid,flug,date,category,cost);
@@ -332,7 +332,9 @@ public class ExpensesController {
 		if(flug == 1) {//収入一覧
 
 			return inDisp(mv);
+
 		}else {//支出一覧
+
 			return outDisp(mv);
 		}
 	}
@@ -356,11 +358,13 @@ public class ExpensesController {
 			) {
 		//入力されていない値があった場合は画面遷移しない処理
 		if(name == "") {
+
 			mv.setViewName("category");
 
 			return mv;
 
 		}else {
+
 			Account user =  (Account) session.getAttribute("user");
 			Integer uid = user.getCode();
 
@@ -401,6 +405,7 @@ public class ExpensesController {
 	public ModelAndView DeleteCategory(
 			@RequestParam("code") Integer code,
 			ModelAndView mv
+
 			) {
 		categoryRepository.deleteById(code);
 
@@ -522,10 +527,57 @@ public class ExpensesController {
 	}
 
 	//月間レポート更新---------------------------------------------
-	public void UpdateMonth(Integer code) {
+	public void UpdateMonth(Integer code,Integer flug,Integer cost) {
+
+		//ログインしているアカウントを判定
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
+		//収入・支出テーブルから追加したデータ取得
+		Optional<Money> moneyList = moneyRepository.findById(code);
+		Money mList = moneyList.get();
+
+		LocalDate date = mList.getDate();
+
+		int year = date.getYear();
+
+		int month = date.getMonthValue();
+
+		//ログインしているユーザの月間レポート取得
+		List<Month> monthTotal = monthRepository.findByUid(uid);
 
 
+		//同じyear,monthのデータがあるか捜査
+		for(Month mindex : monthTotal ) {
 
+			if(mindex.getYear() == year && mindex.getMonth() == month ) {
+				//データ更新
+
+				if(flug == 1) {//収入
+					//更新前の金額を引き、更新後の値を足す
+					Integer intotal = (mindex.getIntotal()- mList.getCost()) + cost;
+					Integer outtotal = mindex.getOuttotal();
+
+
+					Month newMonth = new Month(mindex.getCode(),uid,year,month,intotal,outtotal,intotal - outtotal);
+
+					monthRepository.saveAndFlush(newMonth);
+				}else {//支出
+
+					Integer intotal = mindex.getIntotal();
+					//更新前の金額を引き、更新後の値を足す
+					Integer outtotal = (mindex.getOuttotal() - mList.getCost()) + cost;
+
+					Month newMonth = new Month(mindex.getCode(),uid,year,month,intotal,outtotal,intotal - outtotal);
+
+					monthRepository.saveAndFlush(newMonth);
+
+				}
+
+				return;
+			}
+		}
 
 		return;
 	}
@@ -579,8 +631,6 @@ public class ExpensesController {
 				return;
 			}
 		}
-
-
 		return;
 	}
 
