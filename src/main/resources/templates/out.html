@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1>新規支出登録</h1>
+	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 	<form action="/outAdd" method="POST">
 
 	<table border="1">

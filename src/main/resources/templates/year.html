@@ -5,25 +5,31 @@
 <title>年間レポート</title>
 </head>
 <body>
-<h1>年間レポート</h1>
+	<h1>年間レポート</h1>
 	<table border="1">
+	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 		<tr>
 			<td>年</td>
 			<td>収入合計</td>
 			<td>支出合計</td>
 			<td>貯蓄</td>
 		</tr>
+		<tr th:each="yList:${yearList}">
+			<td th:text="${yList.year}"></td>
+			<td th:text="${yList.intotal}"></td>
+			<td th:text="${yList. outtotal}"></td>
+			<td th:text="${yList.total}"></td>
 	</table>
-		<form action="/in">
+	<form action="/in">
 		<input type="submit" value="新規収入入力">
 	</form>
 	<form action="/out">
 		<input type="submit" value="新規支出入力">
 	</form>
-		<form action="/month">
+	<form action="/month">
 		<input type="submit" value="月間レポート">
 	</form>
-		<form action="/">
+	<form action="/">
 		<input type="submit" value="トップ">
 	</form>
 </body>

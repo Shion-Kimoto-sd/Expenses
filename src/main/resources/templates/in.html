@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1>新規収入登録</h1>
+	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 	<form action="/inAdd" method="POST">
 	<table border="1">
 		<tr>

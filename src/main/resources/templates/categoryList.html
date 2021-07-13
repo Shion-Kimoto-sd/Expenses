@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1>カテゴリーリスト</h1>
+	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 	<table border="1">
 		<tr>
 			<td>カテゴリ</td>

@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1>更新</h1>
+	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 	<form action="/update" method="POST">
 		<input type="hidden" name="code" th:value="${code}"> <input
 			type="hidden" name="flug" th:value="${flug}">

@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1>新規カテゴリー登録</h1>
+	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 	<form action="/addCategory" method="post">
 		<table border="1">
 			<tr>

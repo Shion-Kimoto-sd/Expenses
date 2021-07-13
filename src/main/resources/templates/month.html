@@ -13,12 +13,18 @@
 	<input type="submit" value="更新">
 	<table border="1">
 		<tr>
+			<td>年</td>
 			<td>月</td>
 			<td>収入合計</td>
 			<td>支出合計</td>
 			<td>貯蓄</td>
 		</tr>
-
+		<tr th:each="mList:${monthList}">
+			<td th:text="${mList.year}"></td>
+			<td th:text="${mList.month}"></td>
+			<td th:text="${mList.intotal}"></td>
+			<td th:text="${mList. outtotal}"></td>
+			<td th:text="${mList.total}"></td>
 	</table>
 	<form action="/in">
 		<input type="submit" value="新規収入入力">
