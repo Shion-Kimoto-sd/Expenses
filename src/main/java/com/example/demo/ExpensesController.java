@@ -463,9 +463,9 @@ public class ExpensesController {
 
 		LocalDate date = mList.getDate();
 
-		Integer year = date.getYear();
+		int year = date.getYear();
 
-		Integer month = date.getMonthValue();
+		int month = date.getMonthValue();
 
 		//ログインしているユーザの月間レポート取得
 		List<Month> monthTotal = monthRepository.findByUid(uid);
@@ -473,9 +473,13 @@ public class ExpensesController {
 
 		//同じyear,monthのデータがあるか捜査
 		for(Month mindex : monthTotal ) {
+			System.out.println("月間レポート:" + mindex.getYear());
+			System.out.println("収入・支出テーブル:" + year);
+			System.out.println("月間レポート:" + mindex.getMonth());
+			System.out.println("収入・支出テーブル:" + month);
+
 			if(mindex.getYear() == year && mindex.getMonth() == month ) {
 				//データ更新
-
 
 				if(mList.getFlug() == 1) {//収入
 					Integer intotal = mindex.getIntotal()+ mList.getCost();
@@ -520,6 +524,9 @@ public class ExpensesController {
 	//月間レポート更新---------------------------------------------
 	public void UpdateMonth(Integer code) {
 
+
+
+
 		return;
 	}
 
@@ -537,9 +544,9 @@ public class ExpensesController {
 
 		LocalDate date = mList.getDate();
 
-		Integer year = date.getYear();
+		int year = date.getYear();
 
-		Integer month = date.getMonthValue();
+		int month = date.getMonthValue();
 		//ログインしているユーザの月間レポート取得
 		List<Month> monthTotal = monthRepository.findByUid(uid);
 
