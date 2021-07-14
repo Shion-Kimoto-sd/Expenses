@@ -2,19 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/style.css}" rel="stylesheet">
 <title>年間レポート</title>
 </head>
 <body>
 	<h1>年間レポート</h1>
-	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	<p>
+		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	</p>
 
-	<form action = "/year" method = "POST">
+	<form action="/year" method="POST">
 		<select name="YEAR">
-			<option th:each="i : ${#numbers.sequence(2020,2030 )}" th:value="${i}"
-				th:text="${i}+ '年'"></option>
+			<option th:each="i : ${#numbers.sequence(2020,2030 )}"
+				th:value="${i}" th:text="${i}+ '年'"></option>
 
-		</select>
-		<input type="submit" value="更新">
+		</select> <input type="submit" value="更新">
 
 	</form>
 
@@ -31,17 +33,10 @@
 			<td th:if="${year == yList.year}" th:text="${yList. outtotal}"></td>
 			<td th:if="${year == yList.year}" th:text="${yList.total}"></td>
 	</table>
-	<form action="/in">
-		<input type="submit" value="新規収入入力">
-	</form>
-	<form action="/out">
-		<input type="submit" value="新規支出入力">
-	</form>
-	<form action="/month">
-		<input type="submit" value="月間レポート">
-	</form>
-	<form action="/">
-		<input type="submit" value="トップ">
-	</form>
+	<a href="/in" class="btn bgskew"><span>新規収入入力</span></a>
+	<a href="/out" class="btn bgskew"><span>新規支出入力</span></a>
+	<a href="/month" class="btn bgskew"><span>月間レポート</span></a>
+	<a href="/" class="btn bgskew"><span>トップページ</span></a>
+
 </body>
 </html>

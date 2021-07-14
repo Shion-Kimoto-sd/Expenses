@@ -2,59 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/style.css}" rel="stylesheet">
 <title>支出入力画面</title>
 </head>
 <body>
 	<h1>新規支出登録</h1>
-	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	<p>
+		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	</p>
 	<form action="/outAdd" method="POST">
 
-	<table border="1">
-		<tr>
-			<td>年</td>
-			<td>月</td>
-			<td>日</td>
-			<td>カテゴリ</td>
-			<td>品名・店名</td>
-			<td>金額</td>
-			<td>登録</td>
+		<table border="1">
+			<tr>
+				<td>年</td>
+				<td>月</td>
+				<td>日</td>
+				<td>カテゴリ</td>
+				<td>品名・店名</td>
+				<td>金額</td>
+				<td>登録</td>
 
-		</tr>
-		<tr>
-			<td><select name="year">
-					<option th:each="i : ${#numbers.sequence(2020,2030 )}"
-						th:value="${i}" th:text="${i}"></option>
-			</select></td>
-			<td><select name="month">
-					<option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
-						th:text="${i}"></option>
-			</select></td>
-			<td><select name="date">
-					<option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}"
-						th:text="${i}"></option>
-			</select>
-			<td><select name="category">
-					<option th:each="cList:${category}" th:value="${cList.name}"
-						th:text="${cList.name}"></option>
-			</select></td>
-			<td><input type="text" name="name"></td>
-			<td><input type="text" name="money"></td>
-			<td><input type="submit" value="登録"></td>
+			</tr>
+			<tr>
+				<td><select name="year">
+						<option th:each="i : ${#numbers.sequence(2020,2030 )}"
+							th:value="${i}" th:text="${i}"></option>
+				</select></td>
+				<td><select name="month">
+						<option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
+							th:text="${i}"></option>
+				</select></td>
+				<td><select name="date">
+						<option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}"
+							th:text="${i}"></option>
+				</select>
+				<td><select name="category">
+						<option th:each="cList:${category}" th:value="${cList.name}"
+							th:text="${cList.name}"></option>
+				</select></td>
+				<td><input type="text" name="name"></td>
+				<td><input type="text" name="money"></td>
+				<td><input type="submit" value="登録"></td>
 
-		</tr>
-	</table>
+			</tr>
+		</table>
 	</form>
-	<form action="/outDisp">
-		<input type="submit" value="支出一覧表示">
-	</form>
-	<form action="/newCategory">
-		<input type="submit" value="新規カテゴリ登録">
-	</form>
-	<form action="/in">
-		<input type="submit" value="新規収入登録">
-	</form>
-	<form action="/">
-		<input type="submit" value="トップ">
-	</form>
+	<a href="/outDisp" class="btn bgskew"><span>支出一覧表示</span></a>
+	<a href="/newCategory" class="btn bgskew"><span>新規カテゴリ登録</span></a>
+	<a href="/in" class="btn bgskew"><span>新規収入入力</span></a>
+	<a href="/" class="btn bgskew"><span>トップページ</span></a>
 </body>
 </html>

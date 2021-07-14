@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/style.css}" rel="stylesheet">
 <title>収入一覧</title>
 </head>
 <body>
 	<h1>収入一覧</h1>
-	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
 	<table border="1">
 		<tr>
 			<td>年月日</td>
@@ -35,11 +36,8 @@
 			</td>
 		</tr>
 	</table>
-	<form action="/in">
-		<input type="submit" value="新規収入登録">
-	</form>
-	<form action="/">
-		<input type="submit" value="トップ">
-	</form>
+	<a href="/in" class="btn bgskew"><span>新規収入入力</span></a>
+	<a href="/" class="btn bgskew"><span>トップページ</span></a>
+
 </body>
 </html>

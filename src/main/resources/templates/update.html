@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/style.css}" rel="stylesheet">
 <title>更新</title>
 </head>
 <body>
 	<h1>更新</h1>
-	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
 	<form action="/update" method="POST">
 		<input type="hidden" name="code" th:value="${code}"> <input
 			type="hidden" name="flug" th:value="${flug}">

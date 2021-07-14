@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/style.css}" rel="stylesheet">
 <title>会員登録</title>
 </head>
 <body>
 	<h1>会員登録</h1>
 	<div th:if="${message != null}">
-		<span th:text="${message}" style="color:red"></span>
+		<span th:text="${message}" style="color: red"></span>
 	</div>
 	<form action="/signup" method="post">
 		<table border="1">
@@ -26,8 +27,8 @@
 	</form>
 
 	<br>
+	<a href="/loginDisp" class="btn bgskew"><span>ログイン</span></a>
 
-	<a href="/loginDisp">ログイン</a>はこちら
 	<br>
 
 </body>

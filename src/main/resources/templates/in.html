@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>新規収入登録</h1>
-	<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
 	<form action="/inAdd" method="POST">
 	<table border="1">
 		<tr>
@@ -41,17 +41,9 @@
 		</tr>
 	</table>
 	</form>
-	<form action="/inDisp">
-		<input type="submit" value="収入一覧表示">
-	</form>
-	<form action="/newCategory">
-		<input type="submit" value="新規カテゴリ登録">
-	</form>
-	<form action="/out">
-		<input type="submit" value="新規支出登録">
-	</form>
-	<form action="/">
-		<input type="submit" value="トップ">
-	</form>
+	<a href="/inDisp" class="btn bgskew"><span>収入一覧表示</span></a>
+	<a href="/newCategory" class="btn bgskew"><span>新規カテゴリ登録</span></a>
+	<a href="/out" class="btn bgskew"><span>新規支出入力</span></a>
+	<a href="/" class="btn bgskew"><span>トップページ</span></a>
 </body>
 </html>
