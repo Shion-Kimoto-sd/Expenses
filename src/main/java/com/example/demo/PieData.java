@@ -1,6 +1,6 @@
 package com.example.demo;
 
-public class PieDate {
+public class PieData {
 
 	//登録されたカテゴリ名ごとの合計値
 	int total;
@@ -10,17 +10,21 @@ public class PieDate {
 
 
 	//コンストラクタ
-	public PieDate() {
+	public PieData() {
 
 	}
 
 
-	public PieDate(int total, String categoryName) {
+	public PieData(int total, String categoryName) {
 		super();
 		this.total = total;
 		this.categoryName = categoryName;
 	}
 
+	public void updata(int total,String name) {
+		this.total = total;
+		this.categoryName = name;
+	}
 
 	public int getTotal() {
 		return total;
