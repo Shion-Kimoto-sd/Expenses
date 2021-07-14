@@ -72,11 +72,13 @@ span{
 	display: inline-block;
 	position: relative;
 	margin-left: auto;
-	margin-right: auto
+	margin-right: auto;
+	background:#e3f6f5;
 }
 
 #legend {
 	display: inline-block;
+	background:#e3f6f5;
 }
 
 /*テーブルデザイン*/

@@ -13,7 +13,7 @@ public class TestController {
 	public ModelAndView test(ModelAndView mv) {
 
 		//start.htmlへ
-		mv.setViewName("start");
+		mv.setViewName("start2");
 
 		return mv;
 	}
