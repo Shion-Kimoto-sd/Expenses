@@ -33,7 +33,7 @@ public class ExpensesController {
 
 
 //トップページへ-------------------------------------------------------------
-	//http://localhost:8080/g
+	//http://localhost:8080/
 	@GetMapping("/")
 	public ModelAndView top(ModelAndView mv) {
 
