@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
-<link th:href="@{/css/style4.css}" rel="stylesheet">
-<title>KAKEINEKO</title>
-</head>
+<html lang="ja" class="no-js">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>ページ1 | ページ遷移エフェクトデモ</title>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:200" rel="stylesheet">
 <body class="fadeout">
-  <section class="page one">
-    <article>
-      <h1>Page One</h1>
-      <a href="two.html" class="navigate-anchor">Move to Next Page</a>
-    </article>
-  </section>
- <script>
-  $(window).on('load', function(){
-  $('body').removeClass('fadeout');
-});
+<section class="page one">
+  <article>
+    <h1>Page One</h1>
+    <a href="two.html" class="navigate-anchor">Move to Next Page</a>
+  </article>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+<script>
+$(window).on('load', function(){
+	  $('body').removeClass('fadeout');
+	});
 $(function() {
-  // ハッシュリンク(#)と別ウィンドウでページを開く場合はスルー
-  $('a:not([href^="#"]):not([target])').on('click', function(e){
-    e.preventDefault(); // ナビゲートをキャンセル
-    url = $(this).attr('href'); // 遷移先のURLを取得
-    if (url !== '') {
-      $('body').addClass('fadeout');  // bodyに class="fadeout"を挿入
-      setTimeout(function(){
-        window.location = url;  // 0.8秒後に取得したURLに遷移
-      }, 800);
-    }
-    return false;
-  });
-});
+	  // ハッシュリンク(#)と別ウィンドウでページを開く場合はスルー
+	  $('a:not([href^="#"]):not([target])').on('click', function(e){
+	    e.preventDefault(); // ナビゲートをキャンセル
+	    url = $(this).attr('href'); // 遷移先のURLを取得
+	    if (url !== '') {
+	      $('body').addClass('fadeout');  // bodyに class="fadeout"を挿入
+	      setTimeout(function(){
+	        window.location = url;  // 0.8秒後に取得したURLに遷移
+	      }, 800);
+	    }
+	    return false;
+	  });
+	});
 </script>
 </body>
 </html>

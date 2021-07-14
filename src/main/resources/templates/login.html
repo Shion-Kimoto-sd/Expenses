@@ -2,33 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link th:href="@{/css/style.css}" rel="stylesheet">
+<link th:href="@{/css/login.css}" rel="stylesheet">
 <title>ログイン</title>
 </head>
-<body>
+<div class="form-wrapper">
 	<h1>ログイン</h1>
 	<div th:if="${message != null}">
-		<span th:text="${message}" style="color:red"></span>
+		<span th:text="${message}" style="color: red"></span>
 	</div>
-	<form action="/login" method="post">
-		<table border="1">
-			<tr>
-				<th>ユーザID</th>
-				<td><input type="text" name="USER_ID"></td>
-			</tr>
-			<tr>
-				<th>パスワード</th>
-				<td><input type="password" name="PASSWORD"></td>
-			</tr>
-		</table>
-
-		<br> <input type="submit" value="ログイン">
-
-	</form>
-
-	<br>
-	<a href="/signup" class="btn bgskew"><span>新規会員登録</span></a>
-	<br>
-
+	<div class="form-wrapper">
+		<form action="/login" method="post">
+			<div class="form-item">
+				<label for="USER_ID"></label> <input type="text" name="USER_ID"
+					required="required" placeholder=" ユーザーID"></input>
+			</div>
+			<div class="form-item">
+				<label for="password"></label> <input type="password"
+					name="PASSWORD" required="required" placeholder="パスワード"></input>
+			</div>
+			<div class="button-panel">
+				<input type="submit" class="button" title="Sign In" value="ログイン"></input>
+			</div>
+		</form>
+		<div class="form-footer">
+			<p>
+				<a href="/signup" class="btn bgskew"><span>新規会員登録</span></a>
+			</p>
+		</div>
+	</div>
+</div>
 </body>
 </html>
