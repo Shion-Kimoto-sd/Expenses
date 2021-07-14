@@ -39,6 +39,13 @@
 			<td th:if="${year == mList.year && month == mList.month}"
 				th:text="${mList.total}"></td>
 	</table>
+
+<br>
+
+	<span th:replace="PieChart"></span>
+
+	<br>
+
 	<a href="/in" class="btn bgskew"><span>新規収入入力</span></a>
 	<a href="/out" class="btn bgskew"><span>新規支出入力</span></a>
 	<a href="/year" class="btn bgskew"><span>年間レポート</span></a>

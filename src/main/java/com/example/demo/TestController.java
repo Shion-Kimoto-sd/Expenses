@@ -8,14 +8,24 @@ import org.springframework.web.servlet.ModelAndView;
 public class TestController {
 
 
-	//新規会員登録画面-------------------------------------------------------------
-	//http://localhost:8080/signup
+	//http://localhost:8080/test
 	@GetMapping("/test")
-	public ModelAndView signup(ModelAndView mv) {
+	public ModelAndView test(ModelAndView mv) {
 
-		//signup.htmlへ
+		//start.htmlへ
 		mv.setViewName("start");
 
 		return mv;
 	}
+
+	//http://localhost:8080/testPie
+	@GetMapping("/testPie")
+	public ModelAndView testPie(ModelAndView mv) {
+
+		//PieChart.htmlへ
+		mv.setViewName("PieChart");
+
+		return mv;
+	}
+
 }
