@@ -1,109 +1,117 @@
 @charset "UTF-8";
-html, body {
-  height: 100%;
+/*monthとyear.htmlのデザイン*/
+body{
+	background:#e3f6f5;
+	text-align: center;
 }
 
-html {
-  background: #eee;
+p {
+   position: absolute;
+   top: 10px;
+   right: 30px;
+   text-align: right;
+}
+span{
+	text-align: center;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/*== ボタン共通設定 */
+.btn{
+    /*アニメーションの起点とするためrelativeを指定*/
+    position: relative;
+	overflow: hidden;
+    /*ボタンの形状*/
+	text-decoration: none;
+	display: inline-block;
+   	border: 1px solid #555;/* ボーダーの色と太さ */
+    padding: 10px 30px;
+    text-align: center;
+    outline: none;
+    /*アニメーションの指定*/
+    transition: ease .2s;
 }
 
-.box {
-  width: 300px;
-  height: 300px;
-  border-radius: 5px;
-  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
-  background: #fbfcee;
-  position: relative;
-  overflow: hidden;
-  transform: translate3d(0, 0, 0);
+/*ボタン内spanの形状*/
+.btn span {
+	position: relative;
+	z-index: 3;/*z-indexの数値をあげて文字を背景よりも手前に表示*/
+	color:#333;
 }
 
-.wave {
-  opacity: 0.4;
-  position: absolute;
-  top: 3%;
-  left: 50%;
-  background: #0af;
-  width: 500px;
-  height: 500px;
-  margin-left: -250px;
-  margin-top: -250px;
-  transform-origin: 50% 48%;
-  border-radius: 43%;
-  -webkit-animation: drift 3000ms infinite linear;
-          animation: drift 3000ms infinite linear;
+.btn:hover span{
+	color:#333;
 }
 
-.wave.-three {
-  -webkit-animation: drift 5000ms infinite linear;
-          animation: drift 5000ms infinite linear;
+/*== 背景が流れる（斜め） */
+.bgskew::before {
+	content: '';
+    /*絶対配置で位置を指定*/
+	position: absolute;
+	top: 0;
+	left: -130%;
+    /*色や形状*/
+	background:#ffd803;
+	width:120%;
+	height: 100%;
+	transform: skewX(-25deg);
 }
 
-.wave.-two {
-  -webkit-animation: drift 7000ms infinite linear;
-          animation: drift 7000ms infinite linear;
-  opacity: 0.1;
-  background: yellow;
+/*hoverした時のアニメーション*/
+.bgskew:hover::before {
+	animation: skewanime .5s forwards;/*アニメーションの名前と速度を定義*/
 }
 
-.box:after {
-  content: "";
-  display: block;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, #ee88aa, rgba(221, 238, 255, 0) 80%, rgba(255, 255, 255, 0.5));
-  z-index: 11;
-  transform: translate3d(0, 0, 0);
+@keyframes skewanime {
+	100% {
+		left:-10%;/*画面の見えていない左から右へ移動する終了地点*/
+	}
 }
 
-.title {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-  line-height: 300px;
+/*円グラフのデザイン*/
+#chart {
+	display: inline-block;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto
+}
+
+#legend {
+	display: inline-block;
+}
+
+/*テーブルデザイン*/
+
+.totaltable{
+	  border-collapse: collapse;
+  margin: 0 auto;
+  padding: 0;
+  width: 650px;
+  table-layout: fixed;
+  color: #000;
+}
+.totaltable th {
+  padding: 15px 0;
+  border-right: 1px solid #bbb;
   text-align: center;
-  transform: translate3d(0, 0, 0);
-  color: white;
-  text-transform: uppercase;
-  font-family: "Playfair Display", serif;
-  letter-spacing: 0.4em;
-  font-size: 24px;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  text-indent: 0.3em;
 }
 
-@-webkit-keyframes drift {
-  from {
-    transform: rotate(0deg);
-  }
-  from {
-    transform: rotate(360deg);
-  }
+.totaltable tr {
+  background-color: #fff;
+  padding: 30px;
+  border-bottom: 1px solid #bbb;
 }
 
-@keyframes drift {
-  from {
-    transform: rotate(0deg);
-  }
-  from {
-    transform: rotate(360deg);
-  }
-}
-.wrap {
-	animation: fadein 3s forwards;
+.totaltable tr:last-child{
+   border-bottom: none
 }
 
-@keyframes fadein {
-	0% {opacity: 0}
-	100% {opacity: 1}
+.totaltable td {
+  padding: 1em 10px 1em 1em;
+  border-right: 1px solid #bbb;
+  text-align: center;
+}
+
+.totaltable th:last-child,
+.totaltable td:last-child{
+  border: none;
 }

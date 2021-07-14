@@ -1,50 +1,32 @@
 <head>
 
-    <!-- Ignite UI for jQuery Required Combined CSS Files -->
-    <link href="http://cdn-na.infragistics.com/igniteui/2021.1/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
-    <link href="http://cdn-na.infragistics.com/igniteui/2021.1/latest/css/structure/infragistics.css" rel="stylesheet" />
+<!-- Ignite UI for jQuery Required Combined CSS Files -->
+<link
+	href="http://cdn-na.infragistics.com/igniteui/2021.1/latest/css/themes/infragistics/infragistics.theme.css"
+	rel="stylesheet" />
+<link
+	href="http://cdn-na.infragistics.com/igniteui/2021.1/latest/css/structure/infragistics.css"
+	rel="stylesheet" />
 
-    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<script
+	src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 
-    <!-- Ignite UI for jQuery Required Combined JavaScript Files -->
-    <script src="http://cdn-na.infragistics.com/igniteui/2021.1/latest/js/infragistics.core.js"></script>
-    <script src="http://cdn-na.infragistics.com/igniteui/2021.1/latest/js/infragistics.dv.js"></script>
-    <script src="http://cdn-na.infragistics.com/igniteui/2021.1/latest/js/infragistics.lob.js"></script>
-
-	<style>
-        #chart {
-            display:inline-block;
-            position: relative;
-            float: left;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-        #legend {
-            display:inline-block;
-        }
-
-        .options {
-            margin-top: 20px;
-        }
-
-        .slider {
-            width: 200px;
-            height: 10px;
-            margin: 10px;
-        }
-    </style>
-
+<!-- Ignite UI for jQuery Required Combined JavaScript Files -->
+<script
+	src="http://cdn-na.infragistics.com/igniteui/2021.1/latest/js/infragistics.core.js"></script>
+<script
+	src="http://cdn-na.infragistics.com/igniteui/2021.1/latest/js/infragistics.dv.js"></script>
+<script
+	src="http://cdn-na.infragistics.com/igniteui/2021.1/latest/js/infragistics.lob.js"></script>
 </head>
 <body>
 
-
-
-    <!-- Widget target elements -->
-    <div id="chart"></div>
-    <div id="legend"></div>
-<!--
+	<!-- Widget target elements -->
+	<div id="chart"></div>
+	<div id="legend"></div>
+	<!--
     <table class="options">
         <tr>
             <td>開始角度:</td>
@@ -99,88 +81,128 @@
     </table>
     -->
 
-    <script>
+	<script>
+		$(function() {
 
-        $(function () {
+			data = [ {
+				"Budget" : 60,
+				"Label" : "事務"
+			}, {
+				"Budget" : 40,
+				"Label" : "セールス"
+			}, {
+				"Budget" : 60,
+				"Label" : "IT"
+			}, {
+				"Budget" : 40,
+				"Label" : "マーケティング"
+			}, {
+				"Budget" : 60,
+				"Label" : "開発"
+			}, {
+				"Budget" : 20,
+				"Label" : "サポート"
+			} ];
 
-            data = [{ "Budget": 60, "Label": "事務" }, { "Budget": 40, "Label": "セールス" },
-                { "Budget": 60, "Label": "IT" }, { "Budget": 40, "Label": "マーケティング" },
-                { "Budget": 60, "Label": "開発" }, { "Budget": 20, "Label": "サポート" }];
+			$('#chart').igPieChart({
+				dataSource : data,
+				width : '430px',
+				height : '430px',
+				valueMemberPath : 'Budget',
+				labelMemberPath : 'Label',
+				explodedSlices : [ 2, 3 ],
+				radiusFactor : .6,
+				labelsPosition : "outsideEnd",
+				leaderLineType : "arc",
+				labelExtent : 40,
+				legend : {
+					element : 'legend',
+					type : "item"
+				}
+			});
 
-            $('#chart').igPieChart({
-                dataSource: data,
-                width: '430px',
-                height: '430px',
-                valueMemberPath: 'Budget',
-                labelMemberPath: 'Label',
-                explodedSlices: [2, 3],
-                radiusFactor: .6,
-                labelsPosition: "outsideEnd",
-                leaderLineType: "arc",
-                labelExtent: 40,
-                legend: { element: 'legend', type: "item" }
-            });
+			$("#angle").slider({
+				slide : function(event, ui) {
+					$("#chart").igPieChart("option", "startAngle", ui.value);
+				},
+				min : 0,
+				max : 360
+			});
 
-            $("#angle").slider({
-                slide: function (event, ui) {
-                    $("#chart").igPieChart("option", "startAngle", ui.value);
-                },
-                min: 0,
-                max: 360
-            });
+			$("#radius").slider(
+					{
+						slide : function(event, ui) {
+							$("#chart").igPieChart("option", "radiusFactor",
+									ui.value / 1000.0);
+						},
+						min : 0,
+						max : 1000,
+						value : 600
+					});
 
-            $("#radius").slider({
-                slide: function (event, ui) {
-                    $("#chart").igPieChart("option", "radiusFactor", ui.value / 1000.0);
-                },
-                min: 0,
-                max: 1000,
-                value: 600
-            });
+			$("#labelExtent").slider({
+				slide : function(event, ui) {
+					$("#chart").igPieChart("option", "labelExtent", ui.value);
+				},
+				min : 0,
+				max : 50,
+				value : 40
+			});
 
-            $("#labelExtent").slider({
-                slide: function (event, ui) {
-                    $("#chart").igPieChart("option", "labelExtent", ui.value);
-                },
-                min: 0,
-                max: 50,
-                value: 40
-            });
+			$("#explodedRadius").slider(
+					{
+						slide : function(event, ui) {
+							$("#chart").igPieChart("option", "explodedRadius",
+									ui.value / 100);
+						},
+						min : 0,
+						max : 100,
+						value : 20
+					});
 
-            $("#explodedRadius").slider({
-                slide: function (event, ui) {
-                    $("#chart").igPieChart("option", "explodedRadius", ui.value / 100);
-                },
-                min: 0,
-                max: 100,
-                value: 20
-            });
+			$("#labelPosition")
+					.igCombo(
+							{
+								enableClearButton : false,
+								mode : "dropdown",
+								selectionChanged : function(evt, ui) {
+									if ($.isArray(ui.items)
+											&& ui.items[0] != undefined) {
+										$("#chart").igPieChart("option",
+												"labelsPosition",
+												ui.items[0].data.value);
 
-            $("#labelPosition").igCombo({
-                enableClearButton: false,
-                mode: "dropdown",
-                selectionChanged: function (evt, ui) {
-                    if ($.isArray(ui.items) && ui.items[0] != undefined) {
-                        $("#chart").igPieChart("option", "labelsPosition", ui.items[0].data.value);
+										$("#labelExtent")
+												.slider(
+														"option",
+														"disabled",
+														ui.items[0].data.value != "outsideEnd");
+										$("#leaderLine")
+												.igCombo(
+														"option",
+														"disabled",
+														ui.items[0].data.value != "outsideEnd" ? true
+																: false);
+									}
+								}
+							});
 
-                        $("#labelExtent").slider("option", "disabled", ui.items[0].data.value != "outsideEnd");
-                        $("#leaderLine").igCombo("option", "disabled", ui.items[0].data.value != "outsideEnd" ? true : false);
-                    }
-                }
-            });
+			$("#leaderLine")
+					.igCombo(
+							{
+								enableClearButton : false,
+								mode : "dropdown",
+								selectionChanged : function(evt, ui) {
+									if ($.isArray(ui.items)
+											&& ui.items[0] != undefined) {
+										$("#chart").igPieChart("option",
+												"leaderLineType",
+												ui.items[0].data.value);
+									}
+								}
+							});
 
-            $("#leaderLine").igCombo({
-                enableClearButton: false,
-                mode: "dropdown",
-                selectionChanged: function (evt, ui) {
-                    if ($.isArray(ui.items) && ui.items[0] != undefined) {
-                        $("#chart").igPieChart("option", "leaderLineType", ui.items[0].data.value);
-                    }
-                }
-            });
-
-        });
-
-    </script>
+		});
+	</script>
 
 </body>
