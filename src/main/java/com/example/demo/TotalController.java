@@ -128,8 +128,12 @@ public class TotalController {
 
 		//円グラフ要素作成
 		PieCreate(year,month);
+
+		List<PieData> pieList = piedataRepository.findAll();
+		mv.addObject("pieList", pieList);
+
 		//円グラフ要素テーブル初期化
-		//piedataRepository.deleteAll();
+		piedataRepository.deleteAll();
 
 		//表示する月間レポートテーブル
 		mv.addObject("monthList", monthList);
@@ -160,8 +164,12 @@ public class TotalController {
 		//一週目のforか判定
 		int roopFlug = 0;
 
+
 		//選択されている年月と一致するデータのカテゴリごとの合計を求める
 		for(Money money : moneyList) {
+
+			//登録されていなかった場合0
+			int addFlug = 0;
 
 			//支出の場合のみ処理実行
 			if(money.getFlug() == 2) {
@@ -175,6 +183,7 @@ public class TotalController {
 				//入力された年月のデータか判定
 				if(year == y && month == m) {
 
+					//初めのるーぷ
 					if(roopFlug == 0) {
 						//円グラフの要素の宣言
 						//円グラフ要素に新しくデータを追加
@@ -183,34 +192,32 @@ public class TotalController {
 					}
 
 					if(roopFlug != 0) {
-						List<PieData> pie = piedataRepository.findAll();
 
+						List<PieData> pie = piedataRepository.findAll();
 
 						//既に登録されているカテゴリか判定
 						for(PieData p : pie)
 						{
-
 							//登録済みのカテゴリ名
 							if(p.getName().equals(money.getCategory())) {
 								Integer cost = p.getCost() + money.getCost();
 								PieData data = new PieData(p.getCode(),p.getName(),cost);
 								piedataRepository.saveAndFlush(data);
-								pie = piedataRepository.findAll();
-								break;
-							}
-
-							if(!p.getName().equals(money.getCategory())){
-								PieData data = new PieData(money.getCategory(),money.getCost());
-								piedataRepository.saveAndFlush(data);
-								pie = piedataRepository.findAll();
+								addFlug = 1;
 								break;
 							}
 
 						}//既に登録されているカテゴリか判定処理終了
 
+
+						if(addFlug == 0) {
+							//登録されていなかった場合新規登録
+							PieData data = new PieData(money.getCategory(),money.getCost());
+							piedataRepository.saveAndFlush(data);
+						}
 					}
 					roopFlug = 1;
-					
+
 				}//入力された年月のデータか判定処理終了
 
 			}//支出の時のみ実行するif文終了

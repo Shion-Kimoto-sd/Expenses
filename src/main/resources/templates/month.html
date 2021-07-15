@@ -50,5 +50,7 @@
 	<a href="/out" class="btn bgskew"><span>新規支出入力</span></a>
 	<a href="/year" class="btn bgskew"><span>年間レポート</span></a>
 	<a href="/" class="btn bgskew"><span>トップページ</span></a>
+
+	<div th:each="pie : ${pieList}"><p th:text="${pie.name}"></p><p th:text="${pie.cost}"></p></div>
 </body>
 </html>
