@@ -10,7 +10,7 @@
 
 	<h1>KAKEINEKO</h1>
 	<br>
-	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
+	<p><span th:text="''+${session.user.getName()}+' さんがログイン中'" style="color: #272343"></span></p>
 	<br>
 
 	<a href="/newCategory" class="btn bgskew"><span>新規カテゴリ登録</span></a>
