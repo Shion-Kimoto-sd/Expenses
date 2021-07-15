@@ -26,66 +26,17 @@
 	<!-- Widget target elements -->
 	<div id="chart"></div>
 	<div id="legend"></div>
-	<!--
-    <table class="options">
-        <tr>
-            <td>開始角度:</td>
-            <td>
-                <div id="angle" class="slider"></div>
-            </td>
-        </tr>
-        <tr>
-            <td>半径:</td>
-            <td>
-                <div id="radius" class="slider"></div>
-            </td>
-        </tr>
-        <tr>
-            <td>分解半径</td>
-            <td>
-                <div id="explodedRadius" class="slider"></div>
-            </td>
-        </tr>
-        <tr>
-            <td>ラベルの拡張</td>
-            <td>
-                <div id="labelExtent" class="slider"></div>
-            </td>
-        </tr>
-        <tr>
-            <td>ラベルの位置:</td>
-            <td>
-                <div class="comboContainer">
-                    <select id="labelPosition">
-                        <option value="none">なし</option>
-                        <option value="center">中央</option>
-                        <option value="insideEnd">内部の終了位置</option>
-                        <option value="outsideEnd" selected="selected">外部の終了位置</option>
-                        <option value="bestFit">最適</option>
-                    </select>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>引き出し線:</td>
-            <td>
-                <div class="comboContainer">
-                    <select id="leaderLine">
-                        <option value="straight">直線</option>
-                        <option value="arc" selected="selected">円弧</option>
-                        <option value="spline">スプライン</option>
-                    </select>
-                </div>
-            </td>
-        </tr>
-    </table>
-    -->
 
-	<script>
+	<script th:inline="javascript">
 		$(function() {
 
+			/*<![CDATA[*/
+			var pieData = /*[[${pieList}]]*/;
 
-			data = [ {
+			/*]]>*/
+
+			//円グラフ要素テーブルの要素
+/*  			data = [ {
 				"Budget" : 40,
 				"Label" : "マーケティング"
 			}, {
@@ -101,6 +52,15 @@
 				"Budget" : 20,
 				"Label" : "サポート"
 			} ];
+ */
+ 			data = [];
+
+ 			for(var i = 0 ; pieData.size();i++){
+ 				data += {
+ 						"Budget" : pieData[i].cost,
+ 						"Label" : pieData[i].name
+ 						};
+ 			}
 
 			if(data != null){
 

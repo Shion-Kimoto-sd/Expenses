@@ -129,6 +129,7 @@ public class TotalController {
 		//円グラフ要素作成
 		PieCreate(year,month);
 
+		//円グラフ要素をadd
 		List<PieData> pieList = piedataRepository.findAll();
 		mv.addObject("pieList", pieList);
 
