@@ -6,19 +6,13 @@ body {
 }
 
 /*〇〇さんログイン中*/
-p ribbon8{
-	position: absolute;
-	top: 10px;
-	right: 30px;
-	text-align: right;
-}
 .ribbon8 {
   display: inline-block;
   position: relative;
   padding: 15px 20px;
   font-size: 18px;/*フォントサイズ*/
-  color: #FFF;/*フォントカラー*/
-  background: #a6d3c8;/*背景色*/
+  color: #272343;/*フォントカラー*/
+  background: #ffd803;/*背景色*/
 }
 
 .ribbon8:before {
@@ -28,7 +22,7 @@ p ribbon8{
   left: 0;
   border: none;
   border-bottom: solid 15px transparent;
-  border-right: solid 20px rgb(149, 158, 155);/*折り返し部分*/
+  border-right: solid 20px #272343;/*折り返し部分*/
 }
 
 .ribbon8:after {
@@ -38,8 +32,9 @@ p ribbon8{
   right: 0;
   border: none;
   border-bottom: solid 15px transparent;
-  border-left: solid 20px rgb(149, 158, 155);/*折り返し部分*/
+  border-left: solid 20px #272343;/*折り返し部分*/
 }
+
 /*== ボタン共通設定 */
 .btn {
 	/*アニメーションの起点とするためrelativeを指定*/
