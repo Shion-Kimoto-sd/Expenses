@@ -5,11 +5,40 @@ body {
 	text-align: center;
 }
 
-p {
+/*〇〇さんログイン中*/
+p ribbon8{
 	position: absolute;
 	top: 10px;
 	right: 30px;
 	text-align: right;
+}
+.ribbon8 {
+  display: inline-block;
+  position: relative;
+  padding: 15px 20px;
+  font-size: 18px;/*フォントサイズ*/
+  color: #FFF;/*フォントカラー*/
+  background: #a6d3c8;/*背景色*/
+}
+
+.ribbon8:before {
+  position: absolute;
+  content: '';
+  top: 100%;
+  left: 0;
+  border: none;
+  border-bottom: solid 15px transparent;
+  border-right: solid 20px rgb(149, 158, 155);/*折り返し部分*/
+}
+
+.ribbon8:after {
+  position: absolute;
+  content: '';
+  top: 100%;
+  right: 0;
+  border: none;
+  border-bottom: solid 15px transparent;
+  border-left: solid 20px rgb(149, 158, 155);/*折り返し部分*/
 }
 /*== ボタン共通設定 */
 .btn {
@@ -94,21 +123,20 @@ table th, table td {
 }
 
 button{
-  font-family: 'Ubuntu', sans-serif;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 170px;
-  height: 40px;
+  width: 100px;
+  height: 35px;
   line-height: 1;
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 1px;
-  border: 3px solid #8C82FC;
+  border: 3px solid #ffd803;
   background: #fff;
-  color: #8C82FC;
+  color: #ffd803;
   border-radius: 40px;
   cursor: pointer;
   overflow: hidden;
@@ -116,7 +144,7 @@ button{
 }
 
 button:hover{
-  background: #8C82FC;
+  background: #ffd803;
   color: #fff;
 }
 
