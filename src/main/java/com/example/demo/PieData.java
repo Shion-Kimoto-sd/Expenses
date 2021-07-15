@@ -1,12 +1,30 @@
 package com.example.demo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="piedata")
 public class PieData {
 
-	//登録されたカテゴリ名ごとの合計値
-	int total;
+	//登録されたデータのid
+	@Id
+	@Column(name="code")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	Integer code;
 
 	//登録されたカテゴリ名
-	String categoryName;
+	@Column(name="name")
+	String name;
+
+	//登録されたカテゴリ名ごとの合計値
+	@Column(name="cost")
+	int cost;
+
 
 
 	//コンストラクタ
@@ -15,36 +33,57 @@ public class PieData {
 	}
 
 
-	public PieData(int total, String categoryName) {
+
+	public PieData(Integer code, String name, int cost) {
 		super();
-		this.total = total;
-		this.categoryName = categoryName;
-	}
-
-	public void updata(int total,String name) {
-		this.total = total;
-		this.categoryName = name;
-	}
-
-	public int getTotal() {
-		return total;
+		this.code = code;
+		this.name = name;
+		this.cost = cost;
 	}
 
 
-	public void setTotal(int total) {
-		this.total = total;
+
+	public PieData(String name, int cost) {
+		super();
+		this.name = name;
+		this.cost = cost;
 	}
 
 
-	public String getCategoryName() {
-		return categoryName;
+
+	public Integer getCode() {
+		return code;
 	}
 
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public int getCost() {
+		return cost;
+	}
+
+
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
 
 
 

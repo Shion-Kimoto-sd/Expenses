@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +29,10 @@ public class TotalController {
 
 	@Autowired
 	YearRepository yearRepository;
+
+	@Autowired
+	PiedataRepository piedataRepository;
+
 
 	//年間レポートへ-------------------------------------------
 	@RequestMapping("/year")
@@ -123,6 +126,11 @@ public class TotalController {
 
 		List<Month> monthList = monthRepository.findByUid(uid);
 
+		//円グラフ要素作成
+		PieCreate(year,month);
+		//円グラフ要素テーブル初期化
+		//piedataRepository.deleteAll();
+
 		//表示する月間レポートテーブル
 		mv.addObject("monthList", monthList);
 
@@ -138,8 +146,7 @@ public class TotalController {
 	}
 
 	//円グラフの要素生成メソッド-------------------------------------------------------
-	@SuppressWarnings("null")
-	public ArrayList<PieData> PieCreate(int y,int m) {
+	public void PieCreate(int y,int m) {
 
 		//ログインしているアカウントを判定
 		Account user = (Account) session.getAttribute("user");
@@ -149,46 +156,65 @@ public class TotalController {
 		//収入・支出テーブルからログインしているユーザのデータ取得
 		List<Money> moneyList = moneyRepository.findByUid(uid);
 
-		//円グラフの要素の宣言
-		ArrayList<PieData> pie = null;
+
+		//一週目のforか判定
+		int roopFlug = 0;
 
 		//選択されている年月と一致するデータのカテゴリごとの合計を求める
 		for(Money money : moneyList) {
-			LocalDate date = money.getDate();
 
-			int year = date.getYear();
+			//支出の場合のみ処理実行
+			if(money.getFlug() == 2) {
 
-			int month = date.getMonthValue();
+				LocalDate date = money.getDate();
 
-			//入力された年月のデータか判定
-			if(year == y && month == m) {
+				int year = date.getYear();
 
-				//既に登録されているカテゴリか判定
-				for(PieData p:pie ) {
+				int month = date.getMonthValue();
 
-					String name = p.getCategoryName();
+				//入力された年月のデータか判定
+				if(year == y && month == m) {
 
-					if(name.equals(money.getCategory())) {//既に登録済みのカテゴリデータ
-
-						//登録済みのカテゴリの合計額を更新
-						//pie.setTotal(((PieData) i).getTotal() + money.getCost(),(PieDat;
-					}
-					else {//まだ登録されていないカテゴリ名の場合
-
+					if(roopFlug == 0) {
+						//円グラフの要素の宣言
 						//円グラフ要素に新しくデータを追加
-						PieData newPie = new PieData(money.getCost(),money.getCategory());
-						pie.add(newPie);
+						PieData newPie = new PieData(money.getCategory(),money.getCost());
+						piedataRepository.saveAndFlush(newPie);
 					}
-				}//既に登録されているカテゴリか判定処理終了
 
-			}
+					if(roopFlug != 0) {
+						List<PieData> pie = piedataRepository.findAll();
+
+
+						//既に登録されているカテゴリか判定
+						for(PieData p : pie)
+						{
+
+							//登録済みのカテゴリ名
+							if(p.getName().equals(money.getCategory())) {
+								Integer cost = p.getCost() + money.getCost();
+								PieData data = new PieData(p.getCode(),p.getName(),cost);
+								piedataRepository.saveAndFlush(data);
+								pie = piedataRepository.findAll();
+								break;
+							}
+
+							if(!p.getName().equals(money.getCategory())){
+								PieData data = new PieData(money.getCategory(),money.getCost());
+								piedataRepository.saveAndFlush(data);
+								pie = piedataRepository.findAll();
+								break;
+							}
+
+						}//既に登録されているカテゴリか判定処理終了
+
+					}
+					roopFlug = 1;
+				}//入力された年月のデータか判定処理終了
+
+			}//支出の時のみ実行するif文終了
 
 		}//選択されている年月と一致するデータのカテゴリごとの合計を求める処理終了
 
-		return pie;
-	}
-
-
-
-
+	}//円グラフの要素生成メソッド終了
 }
