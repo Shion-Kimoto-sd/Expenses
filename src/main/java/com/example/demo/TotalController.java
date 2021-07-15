@@ -210,6 +210,7 @@ public class TotalController {
 
 					}
 					roopFlug = 1;
+					
 				}//入力された年月のデータか判定処理終了
 
 			}//支出の時のみ実行するif文終了

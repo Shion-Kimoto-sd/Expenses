@@ -385,8 +385,9 @@ public class ExpensesController {
 			//categoryエンティティをテーブルに登録
 			categoryRepository.saveAndFlush(category);
 
+			mv.setViewName("category");
 			//支出新規登録画面へ
-			return outMoney(mv);
+			return mv;
 
 		}
 	}
