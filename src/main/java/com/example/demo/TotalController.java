@@ -47,6 +47,18 @@ public class TotalController {
 
 		List<Year> yearList = yearRepository.findByUid(uid);
 
+		//円グラフ要素作成
+		PieCreate(2020);
+
+		//円グラフ要素をadd
+		List<PieData> pieList = piedataRepository.findAll();
+
+		mv.addObject("pieList", pieList);
+
+		//円グラフ要素テーブル初期化
+		piedataRepository.deleteAll();
+
+
 		//表示する年間レポートテーブル
 		mv.addObject("yearList", yearList);
 
@@ -108,6 +120,18 @@ public class TotalController {
 		Integer uid = user.getCode();
 
 		List<Month> monthList = monthRepository.findByUid(uid);
+
+		//円グラフ要素作成
+		PieCreate(2020,1);
+
+		//円グラフ要素をadd
+		List<PieData> pieList = piedataRepository.findAll();
+
+		mv.addObject("pieList", pieList);
+
+		//円グラフ要素テーブル初期化
+		piedataRepository.deleteAll();
+
 
 		//表示する月間レポートテーブル
 		mv.addObject("monthList", monthList);
