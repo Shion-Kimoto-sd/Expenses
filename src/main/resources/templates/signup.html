@@ -3,34 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <link rel="shortcut icon" href="/image/neko.jpeg">
-<link th:href="@{/css/style.css}" rel="stylesheet">
+<link th:href=@{/css/loginsignup.css} rel="stylesheet">
 <title>会員登録</title>
 </head>
 <body>
+	<div class="form-wrapper">
 	<h1>会員登録</h1>
 	<div th:if="${message != null}">
 		<span th:text="${message}" style="color: red"></span>
 	</div>
-	<form action="/signup" method="post">
-		<table border="1">
-			<tr>
-				<th>ユーザー名</th>
-				<td><input type="text" name="NAME"></td>
-			</tr>
-			<tr>
-				<th>パスワード</th>
-				<td><input type="password" name="PASSWORD"></td>
-			</tr>
-		</table>
-
-		<br> <input type="submit" value="登録">
-
-	</form>
-
-	<br>
-	<a href="/loginDisp" class="btn bgskew"><span>ログイン</span></a>
-
-	<br>
+	<div class="form-wrapper">
+		<form action="/signup" method="post">
+			<div class="form-item">
+				<label for="USER_ID"></label> <input type="text" name="NAME"
+					required="required" placeholder=" ユーザーID"></input>
+			</div>
+			<div class="form-item">
+				<label for="password"></label> <input type="password"
+					name="PASSWORD" required="required" placeholder="パスワード"></input>
+			</div>
+			<div class="button-panel">
+				<input type="submit" class="button" title="Sign In" value="登録"></input>
+			</div>
+		</form>
+		<div class="form-footer">
+			<p>
+				<a href="/loginDisp" class="btn bgskew"><span>ログイン</span></a>
+			</p>
+		</div>
+	</div>
+</div>
 
 </body>
 </html>
