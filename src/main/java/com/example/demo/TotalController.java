@@ -74,6 +74,18 @@ public class TotalController {
 
 		List<Year> yearList = yearRepository.findByUid(uid);
 
+		//円グラフ要素作成
+		PieCreate(year);
+
+		//円グラフ要素をadd
+		List<PieData> pieList = piedataRepository.findAll();
+
+		mv.addObject("pieList", pieList);
+
+		//円グラフ要素テーブル初期化
+		piedataRepository.deleteAll();
+
+
 		//表示する年間レポートテーブル
 		mv.addObject("yearList", yearList);
 
@@ -132,7 +144,6 @@ public class TotalController {
 		//円グラフ要素をadd
 		List<PieData> pieList = piedataRepository.findAll();
 
-
 		mv.addObject("pieList", pieList);
 
 		//円グラフ要素テーブル初期化
@@ -152,7 +163,7 @@ public class TotalController {
 		return mv;
 	}
 
-	//円グラフの要素生成メソッド-------------------------------------------------------
+	//月間円グラフの要素生成メソッド-------------------------------------------------------
 	public void PieCreate(int y,int m) {
 
 		//ログインしているアカウントを判定
@@ -227,5 +238,82 @@ public class TotalController {
 
 		}//選択されている年月と一致するデータのカテゴリごとの合計を求める処理終了
 
-	}//円グラフの要素生成メソッド終了
+	}//月間円グラフの要素生成メソッド終了
+
+
+	//年間円グラフの要素生成メソッド-------------------------------------------------------
+	public void PieCreate(int y) {
+
+		//ログインしているアカウントを判定
+		Account user = (Account) session.getAttribute("user");
+
+		Integer uid = user.getCode();
+
+		//収入・支出テーブルからログインしているユーザのデータ取得
+		List<Money> moneyList = moneyRepository.findByUid(uid);
+
+
+		//一週目のforか判定
+		int roopFlug = 0;
+
+
+		//選択されている年月と一致するデータのカテゴリごとの合計を求める
+		for(Money money : moneyList) {
+
+			//登録されていなかった場合0
+			int addFlug = 0;
+
+			//支出の場合のみ処理実行
+			if(money.getFlug() == 2) {
+
+				LocalDate date = money.getDate();
+
+				int year = date.getYear();
+
+
+				//入力された年月のデータか判定
+				if(year == y) {
+
+					//初めのるーぷ
+					if(roopFlug == 0) {
+						//円グラフの要素の宣言
+						//円グラフ要素に新しくデータを追加
+						PieData newPie = new PieData(money.getCategory(),money.getCost());
+						piedataRepository.saveAndFlush(newPie);
+					}
+
+					if(roopFlug != 0) {
+
+						List<PieData> pie = piedataRepository.findAll();
+
+						//既に登録されているカテゴリか判定
+						for(PieData p : pie)
+						{
+							//登録済みのカテゴリ名
+							if(p.getName().equals(money.getCategory())) {
+								Integer cost = p.getCost() + money.getCost();
+								PieData data = new PieData(p.getCode(),p.getName(),cost);
+								piedataRepository.saveAndFlush(data);
+								addFlug = 1;
+								break;
+							}
+
+						}//既に登録されているカテゴリか判定処理終了
+
+
+						if(addFlug == 0) {
+							//登録されていなかった場合新規登録
+							PieData data = new PieData(money.getCategory(),money.getCost());
+							piedataRepository.saveAndFlush(data);
+						}
+					}
+					roopFlug = 1;
+
+				}//入力された年月のデータか判定処理終了
+
+			}//支出の時のみ実行するif文終了
+
+		}//選択されている年月と一致するデータのカテゴリごとの合計を求める処理終了
+
+	}//年間円グラフの要素生成メソッド終了
 }

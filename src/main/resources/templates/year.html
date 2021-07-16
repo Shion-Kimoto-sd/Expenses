@@ -33,6 +33,12 @@
 			<td th:if="${year == yList.year}" th:text="${yList. outtotal}"></td>
 			<td th:if="${year == yList.year}" th:text="${yList.total}"></td>
 	</table>
+	<br>
+
+	<span th:replace="PieChart"></span>
+
+	<br>
+
 	<a href="/in" class="btn bgskew"><span>新規収入入力</span></a>
 	<a href="/out" class="btn bgskew"><span>新規支出入力</span></a>
 	<a href="/month" class="btn bgskew"><span>月間レポート</span></a>
