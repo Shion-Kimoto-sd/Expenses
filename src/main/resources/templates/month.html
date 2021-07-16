@@ -34,11 +34,11 @@
 			<td th:if="${year == mList.year && month == mList.month}"
 				th:text="${mList.month}"></td>
 			<td th:if="${year == mList.year && month == mList.month}"
-				th:text="${mList.intotal}"></td>
+				th:text="${'\' + mList.intotal}"></td>
 			<td th:if="${year == mList.year && month == mList.month}"
-				th:text="${mList. outtotal}"></td>
+				th:text="${'\' + mList. outtotal}"></td>
 			<td th:if="${year == mList.year && month == mList.month}"
-				th:text="${mList.total}"></td>
+				th:text="${'\' + mList.total}"></td>
 	</table>
 
 <br>

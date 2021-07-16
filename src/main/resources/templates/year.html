@@ -30,9 +30,9 @@
 		</tr>
 		<tr th:each="yList:${yearList}">
 			<td th:if="${year == yList.year}" th:text="${yList.year}"></td>
-			<td th:if="${year == yList.year}" th:text="${yList.intotal}"></td>
-			<td th:if="${year == yList.year}" th:text="${yList. outtotal}"></td>
-			<td th:if="${year == yList.year}" th:text="${yList.total}"></td>
+			<td th:if="${year == yList.year}" th:text="${'\' + yList.intotal}"></td>
+			<td th:if="${year == yList.year}" th:text="${'\' + yList. outtotal}"></td>
+			<td th:if="${year == yList.year}" th:text="${'\' + yList.total}"></td>
 	</table>
 	<br>
 

@@ -22,7 +22,7 @@
 		<tr th:each="mList:${moneyList}">
 			<td th:if="${mList.flug == 1}" th:text="${mList.date}"></td>
 			<td th:if="${mList.flug == 1}" th:text="${mList. category}"></td>
-			<td th:if="${mList.flug == 1}" th:text="${mList.cost}"></td>
+			<td th:if="${mList.flug == 1}" th:text="${'\' + mList.cost}"></td>
 			<td th:if="${mList.flug == 1}">
 				<form action="/updataDisp" name="check" method="POST">
 					<input type="hidden" name="code" th:value="${mList.code}">
