@@ -30,37 +30,18 @@
 	<script th:inline="javascript">
 		$(function() {
 
+			//TotalControllerから送られた円グラフの要素データ受け取り
 			/*<![CDATA[*/
 			var pieData = /*[[${pieList}]]*/;
 
 			/*]]>*/
 
-			//円グラフ要素テーブルの要素
-/*  			data = [ {
-				"Budget" : 40,
-				"Label" : "マーケティング"
-			}, {
-				"Budget" : 60,
-				"Label" : "開発"
-			}, {
-				"Budget" : 40,
-				"Label" : "マーケティング"
-			}, {
-				"Budget" : 60,
-				"Label" : "開発"
-			},{
-				"Budget" : 20,
-				"Label" : "サポート"
-			} ];
- */
- 			data = [];
+			data = [pieData.length];
 
- 			for(var i = 0 ; pieData.size();i++){
- 				data += {
- 						"Budget" : pieData[i].cost,
- 						"Label" : pieData[i].name
- 						};
- 			}
+			for(i = 0; i < pieData.length; i++){
+				data[i] = {"Budget" : pieData[i].cost,
+					"Label" : pieData[i].name};
+			}
 
 			if(data != null){
 

@@ -131,6 +131,8 @@ public class TotalController {
 
 		//円グラフ要素をadd
 		List<PieData> pieList = piedataRepository.findAll();
+
+
 		mv.addObject("pieList", pieList);
 
 		//円グラフ要素テーブル初期化
