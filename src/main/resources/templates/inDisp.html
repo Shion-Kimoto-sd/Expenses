@@ -7,13 +7,15 @@
 </head>
 <body>
 	<h1>収入一覧</h1>
-	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
+	<p>
+		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	</p>
 	<table border="1">
 		<tr>
 			<td>年月日</td>
 			<td>カテゴリ</td>
 			<td>金額</td>
-			<td>更新</td>
+			<td>編集</td>
 			<td>削除</td>
 		<tr>
 		<tr th:each="mList:${moneyList}">
@@ -21,17 +23,20 @@
 			<td th:if="${mList.flug == 1}" th:text="${mList. category}"></td>
 			<td th:if="${mList.flug == 1}" th:text="${mList.cost}"></td>
 			<td th:if="${mList.flug == 1}">
-				<form action="/updataDisp" method="POST">
+				<form action="/updataDisp" name="check" method="POST">
 					<input type="hidden" name="code" th:value="${mList.code}">
-					<input type="submit" value="更新">
+					<div class="wrapper">
+						<button type="submit">編集</button>
+					</div>
 				</form>
 			</td>
 			<td th:if="${mList.flug == 1}">
 				<form action="/delete" method="POST">
 					<input type="hidden" name="code" th:value="${mList.code}">
 					<input type="hidden" name="flug" th:value="${mList.flug}">
-
-					<input type="submit" value="削除">
+					<div class="green">
+						<button type="submit" class="delete">削除</button>
+					</div>
 				</form>
 			</td>
 		</tr>
@@ -39,6 +44,5 @@
 	<br>
 	<a href="/in" class="btn bgskew"><span>新規収入入力</span></a>
 	<a href="/" class="btn bgskew"><span>トップページ</span></a>
-
 </body>
 </html>

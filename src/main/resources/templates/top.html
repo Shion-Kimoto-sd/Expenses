@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="shortcut icon" href="/image/neco.jpeg">
+<link rel="shortcut icon" href="/image/neko.jpeg">
 <link th:href="@{/css/style.css}" rel="stylesheet">
 <meta charset="UTF-8">
 <title>KAKEINEKOTOP</title>
@@ -11,7 +11,7 @@
 	<h1>KAKEINEKO</h1>
 	<br>
 	<p class="ribbon8">
-		<span th:text="''+${session.user.getName()}+' さんがログイン中'"></span>
+		<span th:text="'Welcome! '+${session.user.getName()}+' さん'"></span>
 	</p>
 
 	<br>

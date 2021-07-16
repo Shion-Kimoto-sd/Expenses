@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link th:href="@{/css/style.css}" rel="stylesheet">
+<link th:href="@{/css/categorylist.css}" rel="stylesheet">
 <title>カテゴリー</title>
 </head>
 <body>
@@ -19,7 +19,9 @@
 			<td>
 				<form action="/deleteCategory" method="POST">
 					<input type="hidden" name="code" th:value="${cList.code}">
-					<input type="submit" value="削除">
+					<div class="green">
+						<button type="submit" class="delete">削除</button>
+					</div>
 				</form>
 			</td>
 		</tr>
