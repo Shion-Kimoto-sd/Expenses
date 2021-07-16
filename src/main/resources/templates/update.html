@@ -18,22 +18,22 @@
 			<tr>
 				<td><select name="year">
 						<option th:each="i : ${#numbers.sequence(2020,2030 )}"
-							th:value="${i}" th:text="${i}"></option>
+							th:value="${i}" th:text="${i}" th:selected="${i == Beforeyear}"></option>
 				</select></td>
 				<td><select name="month">
 						<option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
-							th:text="${i}"></option>
+							th:text="${i}" th:selected="${i == Beforemonth}"></option>
 				</select></td>
 				<td><select name="date">
 						<option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}"
-							th:text="${i}"></option>
+							th:text="${i}" th:selected="${i == Beforeday}"></option>
 				</select>
 				<td><select name="category">
 						<option th:each="cList:${category}" th:value="${cList.name}"
-							th:text="${cList.name}"></option>
+							th:text="${cList.name}" th:selected="${cList.name == Beforecategory}"></option>
 				</select></td>
 				<td>金額</td>
-				<td><input type="text" name="cost"></td>
+				<td><input type="text" name="cost" th:value = "${Beforecost}"></td>
 				<td><div class="wrapper">
 						<button type="submit">保存</button>
 					</div></td>

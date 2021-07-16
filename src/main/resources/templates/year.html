@@ -15,7 +15,7 @@
 	<form action="/year" method="POST">
 		<select name="YEAR">
 			<option th:each="i : ${#numbers.sequence(2020,2030 )}"
-				th:value="${i}" th:text="${i}+ '年'"></option>
+				th:value="${i}" th:text="${i}+ '年'" th:selected="${i == year}"></option>
 
 		</select> <input type="submit" value="更新">
 

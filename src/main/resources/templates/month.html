@@ -14,10 +14,10 @@
 	<form action="/month" method="POST">
 		<select name="YEAR">
 			<option th:each="i : ${#numbers.sequence(2020,2030 )}"
-				th:value="${i}" th:text="${i}+ '年'"></option>
+				th:value="${i}" th:text="${i}+ '年'" th:selected="${i == year}"></option>
 		</select> <select name="MONTH">
 			<option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
-				th:text="${i}+ '月'"></option>
+				th:text="${i}+ '月'" th:selected="${i == month}"></option>
 		</select> <input type="submit" value="更新">
 	</form>
 	<table border="1" class="totaltable">

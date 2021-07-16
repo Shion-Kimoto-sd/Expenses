@@ -246,10 +246,17 @@ public class ExpensesController {
 			ModelAndView mv
 			) {
 
-
+		//更新ボタンが押された収入・支出テーブル要素を抽出
 		Optional<Money> moneyList = moneyRepository.findById(code);
 
 		Money money = moneyList.get();
+
+		LocalDate localDate = money.getDate();
+
+		int year = localDate.getYear();
+		int month = localDate.getMonthValue();
+		int day = localDate.getDayOfMonth();
+
 
 		//セッションからログイン中ユーザのID取得
 		Account user = (Account) session.getAttribute("user");
@@ -259,6 +266,14 @@ public class ExpensesController {
 		List<Category> categoryList = categoryRepository.findByUid(uid);
 
 		mv.addObject("category", categoryList);
+
+		//更新前のデータを送る year,month,day,category,cost
+		mv.addObject("Beforeyear", year);
+		mv.addObject("Beforemonth", month);
+		mv.addObject("Beforeday", day);
+		mv.addObject("Beforecategory", money.getCategory());
+		mv.addObject("Beforecost", money.getCost());
+
 
 		//更新するデータのIDと収入・支出の判定Flugをadd
 		mv.addObject("flug",money.getFlug() );
