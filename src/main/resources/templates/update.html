@@ -2,12 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="/image/neko.jpeg">
 <link th:href="@{/css/style.css}" rel="stylesheet">
 <title>更新</title>
 </head>
 <body>
 	<h1>更新</h1>
-	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
+	<p>
+		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	</p>
 	<form action="/update" method="POST">
 		<input type="hidden" name="code" th:value="${code}"> <input
 			type="hidden" name="flug" th:value="${flug}">
@@ -31,10 +34,13 @@
 				</select></td>
 				<td>金額</td>
 				<td><input type="text" name="cost"></td>
+				<td><div class="wrapper">
+						<button type="submit">保存</button>
+					</div></td>
 			</tr>
 		</table>
-		<br> <input type="submit" value="更新"> <br>
 	</form>
+	<br>
 	<a href="/" class="btn bgskew"><span>トップページ</span></a>
 </body>
 </html>
