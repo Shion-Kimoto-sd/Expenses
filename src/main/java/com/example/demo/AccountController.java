@@ -39,20 +39,34 @@ public class AccountController {
 			ModelAndView mv,
 			@RequestParam("NAME") String name,
 			@RequestParam("PASSWORD") String pass) {
-		if (!name.equals("") && !pass.equals("")) {
 
-			//登録するデータのインスタンスを生成
-			Account account = new Account(name, pass);
-			session.setAttribute("account", account);
-			mv.addObject("message", "登録が完了しました。");
+		//入力された文字が空文字の場合エラー
+		if (name.equals("") && pass.equals("")) {
 
-			//accountエンティティをテーブルに登録
-			accountRepository.saveAndFlush(account);
-			mv.setViewName("login");
-		} else {
 			mv.addObject("message", "未入力の項目があります。");
 			mv.setViewName("signup");
+			return mv;
 		}
+		//既に登録されている場合エラー
+		List<Account> accountList = accountRepository.findAll();
+		for(Account a : accountList) {
+			if(a.getName().equals(name)) {
+				mv.addObject("message", "既に登録されているユーザ名です");
+				mv.setViewName("signup");
+
+				return mv;
+			}
+		}
+
+
+		//登録するデータのインスタンスを生成
+		Account account = new Account(name, pass);
+		session.setAttribute("account", account);
+		mv.addObject("message", "登録が完了しました。");
+
+		//accountエンティティをテーブルに登録
+		accountRepository.saveAndFlush(account);
+		mv.setViewName("login");
 		return mv;
 	}
 

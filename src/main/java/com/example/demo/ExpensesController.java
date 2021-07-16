@@ -385,26 +385,41 @@ public class ExpensesController {
 		//入力されていない値があった場合は画面遷移しない処理
 		if(name == "") {
 
-			mv.setViewName("category");
-
-			return mv;
-
-		}else {
-
-			Account user =  (Account) session.getAttribute("user");
-			Integer uid = user.getCode();
-
-			//登録するデータのインスタンスを生成
-			Category category = new Category(uid,name);
-
-			//categoryエンティティをテーブルに登録
-			categoryRepository.saveAndFlush(category);
+			mv.addObject("message", "カテゴリ名を入力してください");
 
 			mv.setViewName("category");
-			//支出新規登録画面へ
+
 			return mv;
 
 		}
+		Account user =  (Account) session.getAttribute("user");
+		Integer uid = user.getCode();
+
+
+		//既に登録されていた場合
+		List<Category> categoryList = categoryRepository.findByUid(uid);
+		for(Category c : categoryList) {
+			if(c.getName().equals(name)) {
+				mv.addObject("message", "既に登録されているカテゴリ名です");
+				mv.setViewName("category");
+
+				return mv;
+			}
+		}
+
+
+
+		//登録するデータのインスタンスを生成
+		Category category = new Category(uid,name);
+
+		//categoryエンティティをテーブルに登録
+		categoryRepository.saveAndFlush(category);
+
+		mv.setViewName("category");
+		//支出新規登録画面へ
+		return mv;
+
+
 	}
 
 //カテゴリー一覧画面へ---------------------------------------------------------
