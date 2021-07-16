@@ -36,14 +36,16 @@
 
 			/*]]>*/
 
+			//カテゴリの数で配列の要素数決定
 			data = [pieData.length];
 
+			//円グラフの表示要素を登録
 			for(i = 0; i < pieData.length; i++){
 				data[i] = {"Budget" : pieData[i].cost,
 					"Label" : pieData[i].name + ' : ' + pieData[i].cost};
 			}
 
-			if(data != null){
+			if(data.length != 0){
 
 				$('#chart').igPieChart({
 					dataSource : data,
