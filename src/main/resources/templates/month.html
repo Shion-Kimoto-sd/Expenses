@@ -18,7 +18,7 @@
 		</select> <select name="MONTH">
 			<option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}"
 				th:text="${i}+ '月'" th:selected="${i == month}"></option>
-		</select> <input type="submit" value="更新">
+		</select><input type="submit" value="更新" class="submit">
 	</form>
 	<table border="1" class="totaltable">
 		<tr>
