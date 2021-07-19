@@ -7,8 +7,19 @@
 <title>カテゴリー</title>
 </head>
 <body>
-	<h1>カテゴリーリスト</h1>
-	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
+		<div class="ashi">
+		<img src="/image/a.png" alt="足跡">
+		<h1>KAKEINEKO</h1>
+		<img src="/image/a.png" alt="足跡">
+	</div>
+	<p class="ribbon8">
+		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	</p>
+	<br>
+	<br>
+	<br>
+	<div class="moji">登録カテゴリ一覧</div>
+	<br>
 	<table border="1">
 		<tr>
 			<td>カテゴリ</td>

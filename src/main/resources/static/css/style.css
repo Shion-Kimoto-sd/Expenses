@@ -7,7 +7,7 @@ body {
 }
 
 /*top画面のみ*/
-.ashi1{
+.ashi{
 	font-size: 20px;
 	font-family: 'Amatic SC', cursive;
 	display: flex;
@@ -17,51 +17,23 @@ body {
     left: 50%;
 }
 
-.ashi{
-	display: flex;
-	width:50px;
-	height:100px;
-	top: 0;
-    left: 50%;
+.moji{
+	font-size: 30px;
 }
-
 
 /*〇〇さんログイン中*/
 .ribbon8 {
   display: flex;
   float:right;
   position: absolute;
-  top:80px;
+  top:105px;
   right:5px;
-  padding: 5px 10px;
-  font-size: 18px;/*フォントサイズ*/
+  padding: 5px 5px;
+  font-size: 15px;/*フォントサイズ*/
   color: #272343;/*フォントカラー*/
   background: #ffd803;/*背景色*/
 }
 
-.ribbon8:before {
-  display: flex;
-  float:right;
-  position: absolute;
-  content: '';
-  top: 100%;
-  left: 0;
-  border: none;
-  border-bottom: solid 15px transparent;
-  border-right: solid 20px #272343;/*折り返し部分*/
-}
-
-.ribbon8:after {
-  display: flex;
-  float:right;
-  position: absolute;
-  content: '';
-  top: 100%;
-  right: 0;
-  border: none;
-  border-bottom: solid 15px transparent;
-  border-left: solid 20px #272343;/*折り返し部分*/
-}
 
 /*top.htmlのみ*/
 .ribbon {

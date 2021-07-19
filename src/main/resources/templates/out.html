@@ -7,10 +7,19 @@
 <title>支出入力画面</title>
 </head>
 <body>
-	<h1>新規支出登録</h1>
-	<p>
+<div class="ashi">
+		<img src="/image/a.png" alt="足跡">
+		<h1>KAKEINEKO</h1>
+		<img src="/image/a.png" alt="足跡">
+	</div>
+	<p class="ribbon8">
 		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 	</p>
+	<br>
+	<br>
+	<br>
+	<div class="moji">新規支出入力</div>
+	<br>
 	<form action="/outAdd" name="check" method="POST">
 
 		<table border="1">

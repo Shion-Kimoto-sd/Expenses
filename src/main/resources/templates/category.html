@@ -7,14 +7,22 @@
 <title>New category</title>
 </head>
 <body>
-	<h1>新規カテゴリー登録</h1>
+	<div class="ashi">
+		<img src="/image/a.png" alt="足跡">
+		<h1>KAKEINEKO</h1>
+		<img src="/image/a.png" alt="足跡">
+	</div>
+	<p class="ribbon8">
+		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
+	</p>
+	<br>
+	<br>
+	<br>
+	<div class="moji">新規カテゴリ登録</div>
 	<div th:if="${message != null}">
 		<span th:text="${message}" style="color: red"></span>
 	</div>
-
-	<p>
-		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
-	</p>
+	<br>
 	<form action="/addCategory" name="check" method="post">
 		<table border="1">
 			<tr>

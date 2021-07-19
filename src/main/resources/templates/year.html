@@ -7,11 +7,19 @@
 <title>年間レポート</title>
 </head>
 <body>
-	<h1>年間レポート</h1>
-	<p>
+	<div class="ashi">
+		<img src="/image/a.png" alt="足跡">
+		<h1>KAKEINEKO</h1>
+		<img src="/image/a.png" alt="足跡">
+	</div>
+	<p class="ribbon8">
 		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 	</p>
-
+	<br>
+	<br>
+	<br>
+	<div class="moji">年間レポート</div>
+	<br>
 	<form action="/year" method="POST">
 		<select name="YEAR">
 			<option th:each="i : ${#numbers.sequence(2020,2030 )}"

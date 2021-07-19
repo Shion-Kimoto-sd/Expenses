@@ -1,16 +1,39 @@
 @charset "UTF-8";
 /*monthとyear.htmlのデザイン*/
-body{
-	background:#e3f6f5;
+body {
+	background: #e3f6f5;
 	text-align: center;
+
 }
 
-p {
-   position: absolute;
-   top: 10px;
-   right: 30px;
-   text-align: right;
+/*top画面のみ*/
+.ashi{
+	font-size: 20px;
+	font-family: 'Amatic SC', cursive;
+	display: flex;
+	width:50px;
+	height:100px;
+		top: 0;
+    left: 50%;
 }
+
+.moji{
+	font-size: 30px;
+}
+
+/*〇〇さんログイン中*/
+.ribbon8 {
+  display: flex;
+  float:right;
+  position: absolute;
+  top:105px;
+  right:5px;
+  padding: 5px 5px;
+  font-size: 15px;/*フォントサイズ*/
+  color: #272343;/*フォントカラー*/
+  background: #ffd803;/*背景色*/
+}
+
 span{
 	text-align: center;
 }
