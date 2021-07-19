@@ -74,7 +74,8 @@ public class ExpensesController {
 
 		//収入・支出テーブルから全データ取得
 
-		List<Money> moneyList = moneyRepository.findByUid(uid);
+		//List<Money> moneyList = moneyRepository.findByUid(uid);
+		List<Money> moneyList = moneyRepository.findByUidOrderByDateAsc(uid);
 
 		mv.addObject("moneyList", moneyList);
 
@@ -171,7 +172,7 @@ public class ExpensesController {
 
 		//収入・支出テーブルから全データ取得
 
-		List<Money> moneyList = moneyRepository.findByUid(uid);
+		List<Money> moneyList = moneyRepository.findByUidOrderByDateAsc(uid);
 
 		mv.addObject("moneyList", moneyList);
 
