@@ -312,7 +312,7 @@ public class ExpensesController {
 			System.out.println("日付の変換で失敗");
 		}
 
-		//データベースに支出データ追加
+		//ログインしているユーザ情報を取得
 		Account user = (Account) session.getAttribute("user");
 
 		Integer uid = user.getCode();
@@ -322,10 +322,10 @@ public class ExpensesController {
 		//年間レポートテーブル更新処理メソッド呼び出し
 		UpdateYear(code,flug,cost);
 
-		//登録するデータのインスタンスを生成
+		//更新するデータのインスタンスを生成
 		Money m_data = new Money(code,uid,flug,date,category,cost);
 
-		//categoryエンティティをテーブルに登録
+		//収入支出テーブルを更新
 		moneyRepository.saveAndFlush(m_data);
 
 		//更新後一覧表示
