@@ -6,9 +6,17 @@
 <link th:href="@{/css/style.css}" rel="stylesheet">
 <title>収入入力画面</title>
 </head>
-<body>
-	<h1>新規収入登録</h1>
-	<p><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
+<body>	<div class="ashi1">
+		<img src="/image/a.png" alt="足跡">
+		<h1>KAKEINEKO</h1>
+		<img src="/image/a.png" alt="足跡">
+	</div>
+	<p class="ribbon8"><span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span></p>
+	<br>
+	<br>
+	<h2>新規収入入力</h2>
+	<br>
+	<br>
 	<form action="/inAdd" name="check" method="POST">
 	<table border="1">
 		<tr>

@@ -5,48 +5,18 @@
 <link th:href="@{/css/style.css}" rel="stylesheet">
 <meta charset="UTF-8">
 <title>KAKEINEKOTOP</title>
-<style><!--
-@keyframes asbm{
-0%{transform:perspective(250px) rotateY(-10deg) rotateX(15deg);}
-100%{transform:perspective(250px) rotateY(10deg) rotateX(-15deg);}
-}
-@keyframes wlk{
-0%{left:0px;transform:rotateY(0deg);}
-50%{left:calc(100% - 150px);transform:rotateY(0deg);}
-51%{left:calc(100% - 150px);transform:rotateY(180deg);}
-100%{left:0px;transform:rotateY(180deg);}
-}
-.waku0{
-display:inline-block;
-position: relative;
-width: 150px;
-height: 200px;
-animation: wlk 10s linear 0s infinite normal;
-}
-.waku1{
-display:inline-block;
-position:absolute;
-transform-origin: 0% 50% 0px;
-animation:asbm 0.8s linear 0s infinite alternate;
-}
---></style>
 </head>
 <body>
-
-	<h1>KAKEINEKO</h1>
+	<div class="ashi1">
+		<img src="/image/a.png" alt="足跡">
+		<h1>KAKEINEKO</h1>
+		<img src="/image/a.png" alt="足跡">
+	</div>
 	<br>
-	<div class="waku0">
-<div class="waku1">
-   <img src="/image/run.png" alt="f:id:little_strange:20200826212945p:plain"
-        title="f:id:little_strange:20200826212945p:plain"
-        class="hatena-fotolife" itemprop="image"
-        width="100px" height="100px">
-</div>
-</div>
-	<p class="ribbon8">
+	<p class="ribbon">
 		<span th:text="'Welcome! '+${session.user.getName()}+' さん'"></span>
 	</p>
-
+	<br>
 	<br>
 	<br>
 	<a href="/newCategory" class="btn bgskew"><span>新規カテゴリ登録</span></a>
