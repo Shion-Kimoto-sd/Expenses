@@ -6,11 +6,20 @@
 <link th:href="@{/css/style.css}" rel="stylesheet">
 <title>更新</title>
 </head>
-<body>
-	<h1>更新</h1>
-	<p>
+<body><div class="ashi">
+		<img src="/image/a.png" alt="足跡">
+		<h1>KAKEINEKO</h1>
+		<img src="/image/a.png" alt="足跡">
+	</div>
+	<br>
+		<p class="ribbon8">
 		<span th:text="'（'+${session.user.getName()}+' さんがログイン中）'"></span>
 	</p>
+	<br>
+	<br>
+	<br>
+	<div class="moji">更新</div>
+	<br>
 	<form action="/update" method="POST">
 		<input type="hidden" name="code" th:value="${code}"> <input
 			type="hidden" name="flug" th:value="${flug}">
