@@ -38,7 +38,6 @@ public class TotalController {
 	@RequestMapping("/year")
 	public ModelAndView yearView(ModelAndView mv) {
 
-		//年間レポートテーブルから全データ取得
 		Account user = (Account) session.getAttribute("user");
 
 		Integer uid = user.getCode();
