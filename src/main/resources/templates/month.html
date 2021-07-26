@@ -37,7 +37,7 @@
 			<td>収入合計</td>
 			<td>支出合計</td>
 			<td>貯蓄</td>
-			<td>今月の貯蓄目標</td>
+			<td>今月の<br>貯蓄目標</td>
 		</tr>
 		<tr th:each="mList:${monthList}">
 			<td th:if="${year == mList.year && month == mList.month}"
@@ -50,6 +50,9 @@
 				th:text="${'\' + mList. outtotal}"></td>
 			<td th:if="${year == mList.year && month == mList.month}"
 				th:text="${'\' + mList.total}"></td>
+			<td th:if="${year == mList.year && month == mList.month}"
+				th:text="${TARGET}"></td>
+
 	</table>
 
 	<br>
