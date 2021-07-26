@@ -45,6 +45,15 @@ public class targetCost {
 		this.year = year;
 	}
 
+
+
+	public targetCost(Integer targetcost, Integer month, Integer year) {
+		super();
+		this.targetcost = targetcost;
+		this.month = month;
+		this.year = year;
+	}
+
 	public targetCost() {
 
 	}

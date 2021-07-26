@@ -167,6 +167,28 @@ public class TotalController {
 		//円グラフ要素作成
 		PieCreate(year,month);
 
+		//貯蓄目標取得メソッド
+		Integer targetPrice = getTarget(year,month);
+
+		//実貯蓄額取得
+
+		Integer total = 0;
+
+		for(Month m : monthList) {
+			if(m.getMonth()==month && m.getYear()==year) {
+				total = m.getTotal();
+			}
+		}
+
+		//目標貯蓄との差判定
+		if(total >= targetPrice) {//目標達成
+			String message = "目標達成(目標額:\\" + targetPrice + ")"	;
+			mv.addObject("TARGET", message);
+		}else {//未達成
+			String message = "目標まであと\\" + (targetPrice - total);
+			mv.addObject("TARGET", message);
+		}
+
 		//円グラフ要素をadd
 		List<PieData> pieList = piedataRepository.findAll();
 
@@ -342,4 +364,28 @@ public class TotalController {
 		}//選択されている年月と一致するデータのカテゴリごとの合計を求める処理終了
 
 	}//年間円グラフの要素生成メソッド終了
+
+	//目標貯蓄金額取得メソッド
+	public Integer getTarget(Integer year,Integer month) {
+
+		//ログインしているユーザのID取得
+		Account user =  (Account) session.getAttribute("user");
+		Integer uid = user.getCode();
+
+		//目標金額を0で初期化
+		Integer targetcost = 0;
+
+		//目標貯蓄テーブルからログインしているユーザのデータ取得
+		List<targetCost> targetData = targetRepository.findByUid(uid);
+
+		//表示される年・月と一致する目標金額を取り出し
+		for(targetCost t : targetData) {
+			if(t.getMonth() == month && t.getYear()== year) {
+				targetcost = t.getTargetCost();
+			}
+		}
+
+
+		return targetcost;
+	}
 }
