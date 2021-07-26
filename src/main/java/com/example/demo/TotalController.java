@@ -123,6 +123,38 @@ public class TotalController {
 
 		List<Month> monthList = monthRepository.findByUid(uid);
 
+		//貯蓄目標取得メソッド
+		int targetPrice = getTarget(2020,1);
+
+		//実貯蓄額取得
+		int total = 0;
+
+		for(Month m : monthList) {
+			if(m.getMonth()==1 && m.getYear()==2020) {
+				total = m.getTotal();
+				System.out.println("実貯蓄判定された\\" + total);
+				break;
+			}
+		}
+
+		//目標貯蓄との差判定
+		if(total >= targetPrice) {//目標達成
+			String message = "目標達成(目標額:\\" + targetPrice + ")"	;
+			mv.addObject("TARGET", message);
+
+		}else{//未達成
+			String message = "目標まであと\\" + (targetPrice - total);
+			mv.addObject("TARGET", message);
+		}
+
+		//目標が設定されていない場合
+		if(targetPrice == 0) {
+			String message = "目標が設定されていません。";
+			mv.addObject("TARGET", message);
+
+		}
+
+
 		//円グラフ要素作成
 		PieCreate(2020,1);
 
@@ -164,9 +196,6 @@ public class TotalController {
 
 		List<Month> monthList = monthRepository.findByUid(uid);
 
-		//円グラフ要素作成
-		PieCreate(year,month);
-
 		//貯蓄目標取得メソッド
 		int targetPrice = getTarget(year,month);
 
@@ -197,6 +226,9 @@ public class TotalController {
 			mv.addObject("TARGET", message);
 
 		}
+
+		//円グラフ要素作成
+		PieCreate(year,month);
 
 		//円グラフ要素をadd
 		List<PieData> pieList = piedataRepository.findAll();
