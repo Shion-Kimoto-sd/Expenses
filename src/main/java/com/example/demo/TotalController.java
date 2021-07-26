@@ -153,8 +153,8 @@ public class TotalController {
 	@PostMapping("/month")
 	public ModelAndView monthSelect(
 			ModelAndView mv,
-			@RequestParam("YEAR") int year,
-			@RequestParam("MONTH") int month
+			@RequestParam("YEAR") Integer year,
+			@RequestParam("MONTH") Integer month
 			) {
 
 		//月間レポートテーブルから全データ取得
@@ -175,7 +175,8 @@ public class TotalController {
 		Integer total = 0;
 
 		for(Month m : monthList) {
-			if(m.getMonth()==month && m.getYear()==year) {
+			if(m.getMonth()!=month && m.getYear()!=year) {
+			}else {
 				total = m.getTotal();
 			}
 		}
@@ -184,9 +185,16 @@ public class TotalController {
 		if(total >= targetPrice) {//目標達成
 			String message = "目標達成(目標額:\\" + targetPrice + ")"	;
 			mv.addObject("TARGET", message);
-		}else {//未達成
+		}else{//未達成
 			String message = "目標まであと\\" + (targetPrice - total);
 			mv.addObject("TARGET", message);
+		}
+
+		//目標が設定されていない場合
+		if(targetPrice == 0) {
+			String message = "目標が設定されていません。";
+			mv.addObject("TARGET", message);
+
 		}
 
 		//円グラフ要素をadd
@@ -380,8 +388,11 @@ public class TotalController {
 
 		//表示される年・月と一致する目標金額を取り出し
 		for(targetCost t : targetData) {
-			if(t.getMonth() == month && t.getYear()== year) {
+			System.out.println("表示される年・月と一致する目標金額を取り出し処理");
+			if(t.getMonth()!=month && t.getYear()!=year) {
+			}else {
 				targetcost = t.getTargetCost();
+				System.out.println("目標貯蓄\\" + targetcost);
 			}
 		}
 
