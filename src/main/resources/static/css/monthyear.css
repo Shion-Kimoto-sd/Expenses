@@ -2,8 +2,9 @@
 /*monthとyear.htmlのデザイン*/
 body {
 	background: #e3f6f5;
+}
+.center{
 	text-align: center;
-
 }
 
 /*top画面のみ*/

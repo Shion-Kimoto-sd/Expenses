@@ -12,24 +12,22 @@
 }
 @keyframes wlk{
 0%{left:0px;transform:rotateY(0deg);}
-50%{left:calc(500px - 150px);transform:rotateY(0deg);}
-51%{left:calc(500px - 150px);transform:rotateY(180deg);}
+50%{left:calc(100% - 150px);transform:rotateY(0deg);}
+51%{left:calc(100% - 150px);transform:rotateY(180deg);}
 100%{left:0px;transform:rotateY(180deg);}
 }
 .waku0{
 display:inline-block;
 position: relative;
+width: 150px;
+height: 200px;
 animation: wlk 10s linear 0s infinite normal;
- display: flex;
-flex-direction: row;
 }
 .waku1{
 display:inline-block;
 position:absolute;
 transform-origin: 0% 50% 0px;
 animation:asbm 0.8s linear 0s infinite alternate;
- display: flex;
-flex-direction: row;
 }
 </style>
 </head>
@@ -43,8 +41,8 @@ flex-direction: row;
 <div class="waku1">
    <img src="/image/run.png" alt=走る猫 width="150px" height="150px">
 </div>
-<br>
 </div>
+<div class="center">
 	<p class="ribbon">
 		<span th:text="'Welcome! '+${session.user.getName()}+' さん'"></span>
 	</p>
@@ -63,5 +61,6 @@ flex-direction: row;
 	<a href="/month" class="btn bgskew"><span>月間レポート</span></a>
 	<a href="/year" class="btn bgskew"><span>年間レポート</span></a>
 	<a href="/logout" class="btn bgskew"><span>ログアウト</span></a>
+	</div>
 </body>
 </html>
