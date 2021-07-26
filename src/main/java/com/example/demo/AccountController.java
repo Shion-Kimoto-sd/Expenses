@@ -51,7 +51,7 @@ public class AccountController {
 		List<Account> accountList = accountRepository.findAll();
 		for(Account a : accountList) {
 			if(a.getName().equals(name)) {
-				mv.addObject("message", "既に登録されているユーザ名です");
+				mv.addObject("message", "既に使用されているユーザ名です");
 				mv.setViewName("signup");
 
 				return mv;
@@ -102,17 +102,17 @@ public class AccountController {
 
 		Account user = null;
 
+		boolean ErrorFlug = false;//登録された情報が無いか、PASSが間違っている
+
 		//入力されたnameのアカウントがなかったらloginに戻る
 		try {
 			user = userlist.get(0);
 		} catch (Exception e) {
 
-			mv.addObject("message", "登録の情報がありません。");
-			mv.setViewName("login");
-			return mv;
+			ErrorFlug = true;
 		}
 
-		if (user.getPass().equals(pass)) {
+		if (ErrorFlug == false && user.getPass().equals(pass)) {
 
 			// セッションスコープにログインしているアカウント情報を格納する
 			session.setAttribute("user", user);
@@ -121,7 +121,7 @@ public class AccountController {
 			return mv;
 
 		} else {
-			mv.addObject("message", "パスワードが間違っております。");
+			mv.addObject("message", "登録された情報が無いか、パスワードが間違っております。");
 			mv.setViewName("login");
 			return mv;
 		}
