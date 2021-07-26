@@ -33,6 +33,9 @@ public class TotalController {
 	@Autowired
 	PiedataRepository piedataRepository;
 
+	@Autowired
+	TargetRepository targetRepository;
+
 
 	//年間レポートへ-------------------------------------------
 	@RequestMapping("/year")
