@@ -51,25 +51,11 @@ public class TargetController {
 		Account user =  (Account) session.getAttribute("user");
 		Integer uid = user.getCode();
 
-
-		//既に登録されていた場合
-//		List<Category> categoryList = categoryRepository.findByUid(uid);
-//		for(Category c : categoryList) {
-//			if(c.getName().equals(name)) {
-//				mv.addObject("message", "既に登録されているカテゴリ名です");
-//				mv.setViewName("category");
-//
-//				return mv;
-//			}
-//		}
-
-
-
 		//登録するデータのインスタンスを生成
-		targetCost target = new targetCost(uid,targetCost,month,year);
+		targetCost newTarget = new targetCost(uid,targetCost,month,year);
 
-		//categoryエンティティをテーブルに登録
-		targetRepository.saveAndFlush(target);
+		//targetエンティティをテーブルに登録
+		targetRepository.saveAndFlush(newTarget);
 
 		mv.setViewName("target");
 		//入力前画面へ

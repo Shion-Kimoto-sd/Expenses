@@ -19,8 +19,8 @@ public class targetCost {
 	@Column(name="uid")
 	private Integer uid;
 
-	@Column(name="targetCost")
-	private Integer targetCost;
+	@Column(name="targetcost")
+	private Integer targetcost;
 
 	@Column(name="month")
 	private Integer month;
@@ -32,7 +32,7 @@ public class targetCost {
 		super();
 		this.code = code;
 		this.uid = uid;
-		this.targetCost = targetCost;
+		this.targetcost = targetCost;
 		this.month = month;
 		this.year = year;
 	}
@@ -40,7 +40,7 @@ public class targetCost {
 	public targetCost(Integer uid, Integer targetCost, Integer month, Integer year) {
 		super();
 		this.uid = uid;
-		this.targetCost = targetCost;
+		this.targetcost = targetCost;
 		this.month = month;
 		this.year = year;
 	}
@@ -66,11 +66,11 @@ public class targetCost {
 	}
 
 	public Integer getTargetCost() {
-		return targetCost;
+		return targetcost;
 	}
 
 	public void setTargetCost(Integer targetCost) {
-		this.targetCost = targetCost;
+		this.targetcost = targetCost;
 	}
 
 	public Integer getMonth() {
