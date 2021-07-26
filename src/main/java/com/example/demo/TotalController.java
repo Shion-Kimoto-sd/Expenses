@@ -153,8 +153,8 @@ public class TotalController {
 	@PostMapping("/month")
 	public ModelAndView monthSelect(
 			ModelAndView mv,
-			@RequestParam("YEAR") Integer year,
-			@RequestParam("MONTH") Integer month
+			@RequestParam("YEAR") int year,
+			@RequestParam("MONTH") int month
 			) {
 
 		//月間レポートテーブルから全データ取得
@@ -168,16 +168,16 @@ public class TotalController {
 		PieCreate(year,month);
 
 		//貯蓄目標取得メソッド
-		Integer targetPrice = getTarget(year,month);
+		int targetPrice = getTarget(year,month);
 
 		//実貯蓄額取得
-
-		Integer total = 0;
+		int total = 0;
 
 		for(Month m : monthList) {
-			if(m.getMonth()!=month && m.getYear()!=year) {
-			}else {
+			if(m.getMonth()==month && m.getYear()==year) {
 				total = m.getTotal();
+				System.out.println("実貯蓄判定された\\" + total);
+				break;
 			}
 		}
 
@@ -185,6 +185,7 @@ public class TotalController {
 		if(total >= targetPrice) {//目標達成
 			String message = "目標達成(目標額:\\" + targetPrice + ")"	;
 			mv.addObject("TARGET", message);
+
 		}else{//未達成
 			String message = "目標まであと\\" + (targetPrice - total);
 			mv.addObject("TARGET", message);
@@ -373,15 +374,15 @@ public class TotalController {
 
 	}//年間円グラフの要素生成メソッド終了
 
-	//目標貯蓄金額取得メソッド
-	public Integer getTarget(Integer year,Integer month) {
+	//目標貯蓄金額取得メソッド------------------------------------------------------------
+	public int getTarget(int year,int month) {
 
 		//ログインしているユーザのID取得
 		Account user =  (Account) session.getAttribute("user");
 		Integer uid = user.getCode();
 
 		//目標金額を0で初期化
-		Integer targetcost = 0;
+		int targetcost = 0;
 
 		//目標貯蓄テーブルからログインしているユーザのデータ取得
 		List<targetCost> targetData = targetRepository.findByUid(uid);
@@ -389,10 +390,11 @@ public class TotalController {
 		//表示される年・月と一致する目標金額を取り出し
 		for(targetCost t : targetData) {
 			System.out.println("表示される年・月と一致する目標金額を取り出し処理");
-			if(t.getMonth()!=month && t.getYear()!=year) {
-			}else {
+			if(t.getMonth()==month && t.getYear()==year) {
+				System.out.println("==判定された");
 				targetcost = t.getTargetCost();
 				System.out.println("目標貯蓄\\" + targetcost);
+				return targetcost;
 			}
 		}
 
