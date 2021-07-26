@@ -389,7 +389,6 @@ public class TotalController {
 
 		//表示される年・月と一致する目標金額を取り出し
 		for(targetCost t : targetData) {
-			System.out.println("表示される年・月と一致する目標金額を取り出し処理");
 			if(t.getMonth()==month && t.getYear()==year) {
 				System.out.println("==判定された");
 				targetcost = t.getTargetCost();
